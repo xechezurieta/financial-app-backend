@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "CommonJS",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"outDir": "dist",
+		"typeRoots": ["./node_modules/@types"],
+		"moduleResolution": "node",
+		"types": ["node"],
+		"lib": ["ES2020"],
+		"forceConsistentCasingInFileNames": true,
+		"resolveJsonModule": true
+	},
+	"include": ["src/**/*", "drizzle.config.ts"]
+}
