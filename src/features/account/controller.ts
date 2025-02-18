@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
+import { IAccountModel } from "./types";
 //TODO: user management
 //TODO: error handling
 //TODO: types
 export class AccountController {
-  private accountModel: any;
+  private accountModel: IAccountModel;
 
-  constructor({ accountModel }: { accountModel: any }) {
+  constructor({ accountModel }: { accountModel: IAccountModel }) {
     this.accountModel = accountModel;
   }
   getAccounts = async (req: Request, res: Response) => {
@@ -45,7 +46,10 @@ export class AccountController {
   };
   deleteAccounts = async (req: Request, res: Response) => {
     try {
-      await this.accountModel.deleteAccounts({ userId: req.user.id });
+      await this.accountModel.deleteAccounts({
+        userId: req.user.id,
+        accountIds: req.body.accountIds,
+      });
       res.send("Accounts deleted");
     } catch (error) {
       console.error("Failed to delete accounts", error);
