@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { CategoryController } from "./controller";
+import { ICategoryModel } from "./types";
 
 //TODO: route management
 //TODO: middleware
@@ -7,7 +8,7 @@ import { CategoryController } from "./controller";
 export const createCategoryRouter = ({
   categoryModel,
 }: {
-  categoryModel: any;
+  categoryModel: ICategoryModel;
 }) => {
   const categoryRouter = Router();
 
