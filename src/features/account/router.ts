@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { AccountController } from "./controller";
+import { IAccountModel } from "./types";
 
 //TODO: route management
 //TODO: middleware
@@ -7,7 +8,7 @@ import { AccountController } from "./controller";
 export const createAccountRouter = ({
   accountModel,
 }: {
-  accountModel: any;
+  accountModel: IAccountModel;
 }) => {
   const accountRouter = Router();
 
