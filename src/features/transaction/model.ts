@@ -1,13 +1,11 @@
 import { parse, subDays } from "date-fns";
-import {
-  accountsTable,
-  categoriesTable,
-  Transaction,
-  transactionsTable,
-} from "../../db/schema";
+
 import { and, desc, eq, gte, inArray, lte, sql } from "drizzle-orm";
 import { db } from "../../db/drizzle";
 import { ITransactionModel } from "./types";
+import { Transaction, transactionsTable } from "./schema";
+import { categoriesTable } from "../category/schema";
+import { accountsTable } from "../account/schema";
 
 export class TransactionModel {
   static async getTransactions({
