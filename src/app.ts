@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/login', login)
-//TODO: organize routes with router and proper structure
+// TODO: organize routes with router and proper structure
 /* Accounts */
 app.get('/accounts', getAccountsController)
 app.post('/accounts', createAccountController)

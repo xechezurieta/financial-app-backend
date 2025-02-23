@@ -1,17 +1,17 @@
-import { Router } from "express";
-import { SummaryController } from "./controller";
-import { ISummaryModel } from "./types";
+import { Router } from 'express'
+import { SummaryController } from './controller'
+import { ISummaryModel } from './types'
 
 export const createSummaryRouter = ({
-  summaryModel,
+	summaryModel
 }: {
-  summaryModel: ISummaryModel;
+	summaryModel: ISummaryModel
 }) => {
-  const summaryRouter = Router();
+	const summaryRouter = Router()
 
-  const summaryController = new SummaryController({ summaryModel });
+	const summaryController = new SummaryController({ summaryModel })
 
-  summaryRouter.get("/", summaryController.getSummaryController);
+	summaryRouter.get('/', summaryController.getSummaryController)
 
-  return summaryRouter;
-};
+	return summaryRouter
+}

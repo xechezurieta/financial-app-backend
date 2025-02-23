@@ -1,25 +1,25 @@
-import { Router } from "express";
-import { CategoryController } from "./controller";
-import { ICategoryModel } from "./types";
+import { Router } from 'express'
+import { CategoryController } from './controller'
+import { ICategoryModel } from './types'
 
 //TODO: route management
 //TODO: middleware
 //TODO: types
 export const createCategoryRouter = ({
-  categoryModel,
+	categoryModel
 }: {
-  categoryModel: ICategoryModel;
+	categoryModel: ICategoryModel
 }) => {
-  const categoryRouter = Router();
+	const categoryRouter = Router()
 
-  const categoryController = new CategoryController({ categoryModel });
+	const categoryController = new CategoryController({ categoryModel })
 
-  categoryRouter.get("/", categoryController.getCategories);
-  categoryRouter.get("/:categoryId", categoryController.getCategory);
-  categoryRouter.post("/", categoryController.createCategory);
-  categoryRouter.delete("/", categoryController.deleteCategories);
-  categoryRouter.delete("/:categoryId", categoryController.deleteCategory);
-  categoryRouter.patch("/:categoryId", categoryController.editCategoryName);
+	categoryRouter.get('/', categoryController.getCategories)
+	categoryRouter.get('/:categoryId', categoryController.getCategory)
+	categoryRouter.post('/', categoryController.createCategory)
+	categoryRouter.delete('/', categoryController.deleteCategories)
+	categoryRouter.delete('/:categoryId', categoryController.deleteCategory)
+	categoryRouter.patch('/:categoryId', categoryController.editCategoryName)
 
-  return categoryRouter;
-};
+	return categoryRouter
+}
