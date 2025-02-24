@@ -1,8 +1,8 @@
 import { and, eq, inArray } from 'drizzle-orm'
-import { db } from '../../db/drizzle'
+import { db } from '@/db/drizzle'
 
-import { IAccountModel } from './types'
-import { Account, accountsTable } from './schema'
+import { IAccountModel } from '@/features/account/types'
+import { Account, accountsTable } from '@/features/account/schema'
 
 //TODO: error handling
 //TODO: types

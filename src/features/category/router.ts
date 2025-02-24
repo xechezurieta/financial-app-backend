@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { CategoryController } from './controller'
-import { ICategoryModel } from './types'
+import { CategoryController } from '@/features/category/controller'
+import { ICategoryModel } from '@/features/category/types'
 
 //TODO: route management
 //TODO: middleware

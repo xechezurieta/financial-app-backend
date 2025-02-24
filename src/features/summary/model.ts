@@ -1,10 +1,10 @@
 import { and, desc, eq, gte, lt, lte, sql, sum } from 'drizzle-orm'
-import { db } from '../../db/drizzle'
+import { db } from '@/db/drizzle'
 
-import { ISummaryModel } from './types'
-import { transactionsTable } from '../transaction/schema'
-import { accountsTable } from '../account/schema'
-import { categoriesTable } from '../category/schema'
+import { ISummaryModel } from '@/features/summary/types'
+import { transactionsTable } from '@/features/transaction/schema'
+import { accountsTable } from '@/features/account/schema'
+import { categoriesTable } from '@/features/category/schema'
 
 export class SummaryModel {
 	static async fetchFinancialData({

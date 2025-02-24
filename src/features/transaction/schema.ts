@@ -1,6 +1,6 @@
 import { integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
-import { accountsTable } from '../account/schema'
-import { categoriesTable } from '../category/schema'
+import { accountsTable } from '@/features/account/schema'
+import { categoriesTable } from '@/features/category/schema'
 import { relations } from 'drizzle-orm'
 
 export const transactionsTable = pgTable('transactions', {

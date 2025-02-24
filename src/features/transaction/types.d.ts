@@ -1,4 +1,4 @@
-import { Transaction } from '../../db/schema'
+import { Transaction } from '@/features/transaction/schema'
 
 export interface ITransactionModel {
 	getTransactions({

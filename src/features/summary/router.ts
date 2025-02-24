@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { SummaryController } from './controller'
-import { ISummaryModel } from './types'
+import { SummaryController } from '@/features/summary/controller'
+import { ISummaryModel } from '@/features/summary/types'
 
 export const createSummaryRouter = ({
 	summaryModel

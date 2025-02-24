@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { AccountController } from './controller'
-import { IAccountModel } from './types'
+import { AccountController } from '@/features/account/controller'
+import { IAccountModel } from '@/features/account/types'
 
 //TODO: route management
 //TODO: middleware

@@ -1,8 +1,8 @@
-import { createApp } from './app2.js'
-import { AccountModel } from './features/account/model.js'
-import { CategoryModel } from './features/category/model.js'
-import { SummaryModel } from './features/summary/model.js'
-import { TransactionModel } from './features/transaction/model.js'
+import { createApp } from '@/app2'
+import { AccountModel } from '@/features/account/model'
+import { CategoryModel } from '@/features/category/model'
+import { SummaryModel } from '@/features/summary/model'
+import { TransactionModel } from '@/features/transaction/model'
 
 createApp({
 	accountModel: AccountModel,

@@ -1,4 +1,4 @@
-import { Account } from '../../db/schema'
+import { Account } from '@/features/account/schema'
 
 export interface IAccountModel {
 	getAccounts({ userId }: { userId: string }): Promise<Account[]>

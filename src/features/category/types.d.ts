@@ -1,4 +1,4 @@
-import { Category } from '../../db/schema'
+import { Category } from '@/features/category/schema'
 
 export interface ICategoryModel {
 	getCategories({ userId }: { userId: string }): Promise<Category[]>

@@ -11,7 +11,11 @@
 		"types": ["node"],
 		"lib": ["ES2020"],
 		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"]
+		}
 	},
 	"include": ["src/**/*", "drizzle.config.ts"]
 }

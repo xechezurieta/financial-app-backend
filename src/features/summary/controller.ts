@@ -1,7 +1,10 @@
 import { Request, Response } from 'express'
-import { ISummaryModel } from './types'
+import { ISummaryModel } from '@/features/summary/types'
 import { differenceInDays, parse, subDays } from 'date-fns'
-import { calculatePercentageChange, fillMissingDays } from './utils'
+import {
+	calculatePercentageChange,
+	fillMissingDays
+} from '@/features/summary/utils'
 
 export class SummaryController {
 	private summaryModel: ISummaryModel

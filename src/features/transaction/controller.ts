@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { ITransactionModel } from './types'
+import { ITransactionModel } from '@/features/transaction/types'
 
 export class TransactionController {
 	private transactionModel: ITransactionModel
