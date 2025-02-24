@@ -8,7 +8,7 @@ import {
 	timestamp
 } from 'drizzle-orm/pg-core'
 
-export const usersTable = pgTable('users', {
+/* export const usersTable = pgTable('users', {
 	id: serial('id').primaryKey(),
 	name: varchar({ length: 255 }).notNull(),
 	age: integer().notNull(),
@@ -16,9 +16,9 @@ export const usersTable = pgTable('users', {
 	password: varchar({ length: 255 }).notNull().default('12345678')
 })
 
-export type User = typeof usersTable.$inferSelect
+export type User = typeof usersTable.$inferSelect */
 
-export const accountsTable = pgTable('accounts', {
+export const accountsTable = pgTable('financial_account', {
 	id: text('id').primaryKey(),
 	plaidId: text('plaid_id'),
 	name: text('name').notNull(),
@@ -31,7 +31,7 @@ export const accountsRelations = relations(accountsTable, ({ many }) => ({
 	transactions: many(transactionsTable)
 }))
 
-export const categoriesTable = pgTable('categories', {
+export const categoriesTable = pgTable('category', {
 	id: text('id').primaryKey(),
 	plaidId: text('plaid_id'),
 	name: text('name').notNull(),
@@ -44,7 +44,7 @@ export const categoriesRelations = relations(categoriesTable, ({ many }) => ({
 	transactions: many(transactionsTable)
 }))
 
-export const transactionsTable = pgTable('transactions', {
+export const transactionsTable = pgTable('transaction', {
 	id: text('id').primaryKey(),
 	amount: integer('amount').notNull(),
 	payee: text('payee').notNull(),
