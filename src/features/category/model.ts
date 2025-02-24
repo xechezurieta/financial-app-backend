@@ -1,6 +1,6 @@
 import { and, eq, inArray } from 'drizzle-orm'
 import { db } from '../../db/drizzle'
-import { categoriesTable, type Category } from '@/features/category/schema'
+import { categoriesTable, type Category } from '@/db/schema'
 import { ICategoryModel } from '@/features/category/types'
 
 export class CategoryModel {

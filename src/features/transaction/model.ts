@@ -3,9 +3,12 @@ import { parse, subDays } from 'date-fns'
 import { and, desc, eq, gte, inArray, lte, sql } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
 import { ITransactionModel } from '@/features/transaction/types'
-import { Transaction, transactionsTable } from '@/features/transaction/schema'
-import { categoriesTable } from '@/features/category/schema'
-import { accountsTable } from '@/features/account/schema'
+import {
+	Transaction,
+	transactionsTable,
+	categoriesTable,
+	accountsTable
+} from '@/db/schema'
 
 export class TransactionModel {
 	static async getTransactions({
