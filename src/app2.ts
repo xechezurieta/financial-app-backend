@@ -10,6 +10,7 @@ import { ISummaryModel } from '@/features/summary/types'
 import { createSummaryRouter } from '@/features/summary/router'
 import { toNodeHandler } from 'better-auth'
 import { auth } from '@/lib/auth'
+
 // después
 export const createApp = ({
 	accountModel,
