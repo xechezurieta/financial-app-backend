@@ -11,6 +11,7 @@ import { createSummaryRouter } from '@/features/summary/router'
 import { toNodeHandler } from 'better-auth/node'
 import { auth } from '@/lib/auth'
 import { requireAuth } from './middleware/require-auth'
+import cors from 'cors'
 
 // después
 export const createApp = ({
@@ -25,6 +26,13 @@ export const createApp = ({
 	summaryModel: ISummaryModel
 }) => {
 	const app = express()
+	app.use(
+		cors({
+			origin: 'http://localhost:3000', // Replace with your frontend's origin
+			methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
+			credentials: true // Allow credentials (cookies, authorization headers, etc.)
+		})
+	)
 	app.all('/api/auth/*', toNodeHandler(auth))
 	app.use(json())
 	app.disable('x-powered-by')
