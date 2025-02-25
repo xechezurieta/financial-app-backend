@@ -39,7 +39,6 @@ export const createApp = ({
 	app.use('/summary', createSummaryRouter({ summaryModel }))
 
 	const PORT = process.env.PORT ?? 8080
-	const a = 1
 	app.listen(PORT, () => {
 		console.log(`server listening on port http://localhost:${PORT}`)
 	})
