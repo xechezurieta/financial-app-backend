@@ -59,10 +59,13 @@ export interface ITransactionModel {
 		accountId: string
 	}): Promise<Transaction>
 
-	deleteTransactions(
-		userId: string,
+	deleteTransactions({
+		userId,
+		transactionIds
+	}: {
+		userId: string
 		transactionIds: Array<string>
-	): Promise<Pick<Transaction, 'id'>[]>
+	}): Promise<Pick<Transaction, 'id'>[]>
 
 	editTransaction({
 		userId,

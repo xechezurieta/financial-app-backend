@@ -157,10 +157,13 @@ export class TransactionModel {
 			throw new Error('Failed to create transaction')
 		}
 	}
-	static async deleteTransactions(
-		userId: string,
+	static async deleteTransactions({
+		userId,
+		transactionIds
+	}: {
+		userId: string
 		transactionIds: Array<string>
-	): Promise<Pick<Transaction, 'id'>[]> {
+	}): Promise<Pick<Transaction, 'id'>[]> {
 		try {
 			const transactionToDelete = db.$with('transactions_to_delete').as(
 				db

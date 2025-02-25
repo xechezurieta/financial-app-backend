@@ -1,5 +1,5 @@
 import express from 'express'
-import { login } from './controllers/auth.controller'
+/* import { login } from './controllers/auth.controller' */
 import {
 	bulkDeleteAccountsController,
 	createAccountController,
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 	res.send('Hello World!')
 })
 
-app.post('/login', login)
+/* app.post('/login', login) */
 // TODO: organize routes with router and proper structure
 /* Accounts */
 app.get('/accounts', getAccountsController)

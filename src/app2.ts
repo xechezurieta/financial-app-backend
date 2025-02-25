@@ -10,6 +10,7 @@ import { ISummaryModel } from '@/features/summary/types'
 import { createSummaryRouter } from '@/features/summary/router'
 import { toNodeHandler } from 'better-auth'
 import { auth } from '@/lib/auth'
+import { requireAuth } from './middleware/require-auth'
 
 // después
 export const createApp = ({
@@ -27,6 +28,10 @@ export const createApp = ({
 	app.all('/api/auth/*', toNodeHandler(auth.handler))
 	app.use(json())
 	app.disable('x-powered-by')
+
+	app.use((req, res, next) => {
+		requireAuth(req, res, next)
+	})
 
 	app.use('/accounts', createAccountRouter({ accountModel }))
 	app.use('/categories', createCategoryRouter({ categoryModel }))

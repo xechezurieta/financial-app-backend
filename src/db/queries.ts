@@ -1,23 +1,17 @@
 import { and, desc, eq, gte, inArray, lt, lte, sql, sum } from 'drizzle-orm'
 
 import { db } from './drizzle'
-import {
-	accountsTable,
-	categoriesTable,
-	transactionsTable,
-	User,
-	usersTable
-} from './schema'
+import { accountsTable, categoriesTable, transactionsTable } from './schema'
 import { differenceInDays, parse, subDays } from 'date-fns'
 
-export async function getUser(email: string): Promise<Array<User>> {
+/* export async function getUser(email: string): Promise<Array<User>> {
 	try {
-		return await db.select().from(usersTable).where(eq(usersTable.email, email))
+		return await db.select().from(userTa).where(eq(usersTable.email, email))
 	} catch (error) {
 		console.error('Failed to get user from database')
 		throw error
 	}
-}
+} */
 /* Accounts */
 export async function getAccounts(userId: string) {
 	try {

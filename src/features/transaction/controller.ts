@@ -11,7 +11,10 @@ export class TransactionController {
 	getTransactions = async (req: Request, res: Response) => {
 		try {
 			const transactions = await this.transactionModel.getTransactions({
-				userId: req.user.id
+				userId: req.user.id,
+				from: undefined,
+				to: undefined,
+				accountId: undefined
 			})
 			res.json(transactions)
 		} catch (error) {
@@ -38,9 +41,11 @@ export class TransactionController {
 			const transaction = await this.transactionModel.createTransaction({
 				userId: req.user.id,
 				accountId: req.body.accountId,
-				description: req.body.description,
+				categoryId: req.body.categoryId,
 				amount: req.body.amount,
-				date: new Date(req.body.date)
+				date: new Date(req.body.date),
+				payee: req.body.payee,
+				notes: req.body.notes
 			})
 			res.json(transaction)
 		} catch (error) {
@@ -80,9 +85,12 @@ export class TransactionController {
 			const transaction = await this.transactionModel.editTransaction({
 				transactionId: req.params.transactionId,
 				userId: req.user.id,
-				description: req.body.description,
 				amount: req.body.amount,
-				date: req.body.date ? new Date(req.body.date) : undefined
+				date: req.body.date ? new Date(req.body.date) : new Date(),
+				categoryId: req.body.categoryId,
+				payee: req.body.payee,
+				notes: req.body.notes,
+				accountId: req.body.accountId
 			})
 			res.json(transaction)
 		} catch (error) {

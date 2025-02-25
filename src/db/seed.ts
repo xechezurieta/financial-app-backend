@@ -3,8 +3,8 @@ import { db } from './drizzle'
 import {
 	accountsTable,
 	categoriesTable,
-	transactionsTable,
-	usersTable
+	transactionsTable
+	/* usersTable */
 } from './schema'
 import { convertAmountToMiliunits } from '../utils'
 
