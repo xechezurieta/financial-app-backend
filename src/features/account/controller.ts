@@ -1,14 +1,15 @@
 import { Request, Response } from 'express'
 import { IAccountModel } from '@/features/account/types'
-//TODO: user management
-//TODO: error handling
-//TODO: types
+// TODO: user management
+// TODO: error handling
+// TODO: types
 export class AccountController {
 	private accountModel: IAccountModel
 
 	constructor({ accountModel }: { accountModel: IAccountModel }) {
 		this.accountModel = accountModel
 	}
+
 	getAccounts = async (req: Request, res: Response) => {
 		try {
 			const accounts = await this.accountModel.getAccounts({
@@ -20,6 +21,7 @@ export class AccountController {
 			res.status(500).send('Failed to get accounts')
 		}
 	}
+
 	getAccount = async (req: Request, res: Response) => {
 		try {
 			const account = await this.accountModel.getAccount({
@@ -32,6 +34,7 @@ export class AccountController {
 			res.status(500).send('Failed to get account')
 		}
 	}
+
 	createAccount = async (req: Request, res: Response) => {
 		try {
 			const account = await this.accountModel.createAccount({
@@ -44,6 +47,7 @@ export class AccountController {
 			res.status(500).send('Failed to create account')
 		}
 	}
+
 	deleteAccounts = async (req: Request, res: Response) => {
 		try {
 			await this.accountModel.deleteAccounts({
@@ -56,6 +60,7 @@ export class AccountController {
 			res.status(500).send('Failed to delete accounts')
 		}
 	}
+
 	deleteAccount = async (req: Request, res: Response) => {
 		try {
 			await this.accountModel.deleteAccount({
@@ -68,6 +73,7 @@ export class AccountController {
 			res.status(500).send('Failed to delete account')
 		}
 	}
+
 	editAccountName = async (req: Request, res: Response) => {
 		try {
 			await this.accountModel.editAccountName({

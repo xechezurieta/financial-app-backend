@@ -12,6 +12,7 @@ import { toNodeHandler } from 'better-auth/node'
 import { auth } from '@/lib/auth'
 import { requireAuth } from './middleware/require-auth'
 import cors from 'cors'
+import { createAuthRouter } from '@/features/auth/router'
 
 // después
 export const createApp = ({
@@ -36,6 +37,7 @@ export const createApp = ({
 	app.all('/api/auth/*', toNodeHandler(auth))
 	app.use(json())
 	app.disable('x-powered-by')
+	app.use('/api', createAuthRouter())
 
 	app.use((req, res, next) => {
 		requireAuth(req, res, next)
