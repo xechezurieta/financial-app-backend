@@ -4,8 +4,8 @@ import { db } from '@/db/drizzle'
 import { IAccountModel } from '@/features/account/types'
 import { Account, accountsTable } from '@/db/schema'
 
-//TODO: error handling
-//TODO: types
+// TODO: error handling
+// TODO: types
 export class AccountModel {
 	static async getAccounts({ userId }: { userId: string }): Promise<Account[]> {
 		try {
@@ -18,6 +18,7 @@ export class AccountModel {
 			throw new Error('Failed to retrieve accounts')
 		}
 	}
+
 	static async getAccount({
 		accountId,
 		userId
@@ -41,6 +42,7 @@ export class AccountModel {
 			throw new Error('Failed to retrieve account')
 		}
 	}
+
 	static async createAccount({
 		userId,
 		name
@@ -64,6 +66,7 @@ export class AccountModel {
 			throw new Error('Failed to create account')
 		}
 	}
+
 	static async deleteAccounts({
 		userId,
 		accountIds
@@ -88,6 +91,7 @@ export class AccountModel {
 			throw new Error('Failed to delete accounts')
 		}
 	}
+
 	static async editAccountName({
 		accountId,
 		userId,
@@ -113,6 +117,7 @@ export class AccountModel {
 			throw new Error('Failed to edit account name')
 		}
 	}
+
 	static async deleteAccount({
 		userId,
 		accountId
@@ -137,4 +142,5 @@ export class AccountModel {
 	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const AccountModelInstance: IAccountModel = AccountModel

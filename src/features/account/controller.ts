@@ -37,6 +37,7 @@ export class AccountController {
 
 	createAccount = async (req: Request, res: Response) => {
 		try {
+			console.log('req.user.id', req.user)
 			const account = await this.accountModel.createAccount({
 				userId: req.user.id,
 				name: req.body.name

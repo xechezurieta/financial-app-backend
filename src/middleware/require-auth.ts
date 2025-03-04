@@ -18,11 +18,11 @@ export const requireAuth = async (
 	const session = await auth.api.getSession({
 		headers: fromNodeHeaders(req.headers)
 	}) // Get session using better-auth
-
 	if (!session) {
 		return res.status(401).json({ error: 'Unauthorized' }) // Reject if no session
 	}
 
-	req.user = session.user // Attach user to request (if needed)
+	req.user = session?.user // Attach user to request (if needed)
+	console.log('req.user', req.user)
 	next() // Continue to next middleware
 }

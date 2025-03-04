@@ -35,13 +35,12 @@ export const createApp = ({
 		})
 	)
 	app.all('/api/auth/*', toNodeHandler(auth))
-	app.use(json())
-	app.disable('x-powered-by')
-	app.use('/api', createAuthRouter())
-
 	app.use((req, res, next) => {
 		requireAuth(req, res, next)
 	})
+	app.use(json())
+	app.disable('x-powered-by')
+	app.use('/api', createAuthRouter())
 
 	app.use('/accounts', createAccountRouter({ accountModel }))
 	app.use('/categories', createCategoryRouter({ categoryModel }))
