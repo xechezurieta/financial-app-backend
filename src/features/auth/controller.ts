@@ -8,6 +8,7 @@ export class AuthController {
 			const session = await auth.api.getSession({
 				headers: fromNodeHeaders(req.headers)
 			})
+
 			res.json(session)
 		} catch (error) {
 			console.error('Failed to get session', error)

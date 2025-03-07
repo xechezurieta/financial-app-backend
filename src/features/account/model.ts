@@ -50,6 +50,7 @@ export class AccountModel {
 		userId: string
 		name: string
 	}): Promise<Account> {
+		console.log('createAccount', { userId, name })
 		try {
 			const [account] = await db
 				.insert(accountsTable)
@@ -125,8 +126,9 @@ export class AccountModel {
 		userId: string
 		accountId: string
 	}): Promise<Pick<Account, 'id'> | undefined> {
+		console.log('deleteAccount1', { userId, accountId })
 		try {
-			const [account] = await db
+			const [deletedAccount] = await db
 				.delete(accountsTable)
 				.where(
 					and(eq(accountsTable.userId, userId), eq(accountsTable.id, accountId))
@@ -134,7 +136,8 @@ export class AccountModel {
 				.returning({
 					id: accountsTable.id
 				})
-			return account
+
+			return deletedAccount
 		} catch (error) {
 			console.error('Failed to delete account from database', error)
 			throw new Error('Failed to delete account')

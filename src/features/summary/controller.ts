@@ -59,17 +59,7 @@ export class SummaryController {
 				current: currentPeriod.remaining,
 				previous: lastPeriod.remaining
 			})
-			console.log({
-				currentPeriod,
-				lastPeriod,
-				incomeChange,
-				expensesChange,
-				remainingChange,
-				startDate,
-				endDate,
-				accountId,
-				userId
-			})
+
 			const { topCategories, otherCategories } =
 				await this.summaryModel.getCategoriesSummary({
 					accountId: accountId as string,

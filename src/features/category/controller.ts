@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import { ICategoryModel } from '@/features/category/types'
 
-//TODO: user management
-//TODO: error handling
-//TODO: types
+// TODO: user management
+// TODO: error handling
+// TODO: types
 export class CategoryController {
 	private categoryModel: ICategoryModel
 
@@ -14,7 +14,7 @@ export class CategoryController {
 	getCategories = async (req: Request, res: Response) => {
 		try {
 			const categories = await this.categoryModel.getCategories({
-				userId: req.user.id
+				userId: '1'
 			})
 			res.json(categories)
 		} catch (error) {

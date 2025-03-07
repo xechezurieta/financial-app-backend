@@ -55,17 +55,7 @@ export const getSummaryController = async (
 			current: currentPeriod.remaining,
 			previous: lastPeriod.remaining
 		})
-		console.log({
-			currentPeriod,
-			lastPeriod,
-			incomeChange,
-			expensesChange,
-			remainingChange,
-			startDate,
-			endDate,
-			accountId,
-			userId
-		})
+
 		const { topCategories, otherCategories } = await getCategoriesSummary({
 			accountId: accountId as string,
 			userId: userId as string,

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { IAccountModel } from '@/features/account/types'
+
 // TODO: user management
 // TODO: error handling
 // TODO: types
@@ -11,11 +12,13 @@ export class AccountController {
 	}
 
 	getAccounts = async (req: Request, res: Response) => {
+		console.log('getAccounts', req.user)
 		try {
 			const accounts = await this.accountModel.getAccounts({
 				userId: req.user.id
 			})
-			res.json(accounts)
+			console.log('accounts', accounts)
+			res.json({ accounts })
 		} catch (error) {
 			console.error('Failed to get accounts', error)
 			res.status(500).send('Failed to get accounts')
@@ -39,7 +42,7 @@ export class AccountController {
 		try {
 			console.log('req.user.id', req.user)
 			const account = await this.accountModel.createAccount({
-				userId: req.user.id,
+				userId: '1',
 				name: req.body.name
 			})
 			res.json(account)
@@ -64,11 +67,11 @@ export class AccountController {
 
 	deleteAccount = async (req: Request, res: Response) => {
 		try {
-			await this.accountModel.deleteAccount({
+			const deletedAccount = await this.accountModel.deleteAccount({
 				accountId: req.params.accountId,
-				userId: req.user.id
+				userId: '1'
 			})
-			res.send('Account deleted')
+			res.json({ deletedAccount })
 		} catch (error) {
 			console.error('Failed to delete account', error)
 			res.status(500).send('Failed to delete account')

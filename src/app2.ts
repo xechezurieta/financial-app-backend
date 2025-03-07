@@ -10,7 +10,7 @@ import { ISummaryModel } from '@/features/summary/types'
 import { createSummaryRouter } from '@/features/summary/router'
 import { toNodeHandler } from 'better-auth/node'
 import { auth } from '@/lib/auth'
-import { requireAuth } from './middleware/require-auth'
+import { authenticatedUser } from './middleware/require-auth'
 import cors from 'cors'
 import { createAuthRouter } from '@/features/auth/router'
 
@@ -34,14 +34,13 @@ export const createApp = ({
 			credentials: true // Allow credentials (cookies, authorization headers, etc.)
 		})
 	)
-	app.all('/api/auth/*', toNodeHandler(auth))
-	app.use((req, res, next) => {
-		requireAuth(req, res, next)
-	})
-	app.use(json())
 	app.disable('x-powered-by')
-	app.use('/api', createAuthRouter())
 
+	app.all('/api/auth/*', toNodeHandler(auth))
+	app.use(json())
+	app.use('/api', createAuthRouter())
+	app.use(authenticatedUser)
+	// Protected routes - apply requireAuth middleware
 	app.use('/accounts', createAccountRouter({ accountModel }))
 	app.use('/categories', createCategoryRouter({ categoryModel }))
 	app.use('/transactions', createTransactionRouter({ transactionModel }))
