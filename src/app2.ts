@@ -1,53 +1,68 @@
-import express, { json } from 'express' // require -> commonJS
-import { createAccountRouter } from '@/features/account/router'
+import express, { Application, json } from 'express'
+import cors from 'cors'
+import { toNodeHandler } from 'better-auth/node'
 import 'dotenv/config'
-import { IAccountModel } from '@/features/account/types'
+
+// Feature routers
+import { createAuthRouter } from '@/features/auth/router'
+import { createAccountRouter } from '@/features/account/router'
 import { createCategoryRouter } from '@/features/category/router'
-import { ICategoryModel } from '@/features/category/types'
 import { createTransactionRouter } from '@/features/transaction/router'
+import { createSummaryRouter } from '@/features/summary/router'
+
+// Types
+import { IAccountModel } from '@/features/account/types'
+import { ICategoryModel } from '@/features/category/types'
 import { ITransactionModel } from '@/features/transaction/types'
 import { ISummaryModel } from '@/features/summary/types'
-import { createSummaryRouter } from '@/features/summary/router'
-import { toNodeHandler } from 'better-auth/node'
-import { auth } from '@/lib/auth'
-import { authenticatedUser } from './middleware/require-auth'
-import cors from 'cors'
-import { createAuthRouter } from '@/features/auth/router'
 
-// después
-export const createApp = ({
-	accountModel,
-	categoryModel,
-	transactionModel,
-	summaryModel
-}: {
+// Middleware
+import { authenticatedUser } from './middleware/require-auth'
+import { auth } from '@/lib/auth'
+
+interface AppDependencies {
 	accountModel: IAccountModel
 	categoryModel: ICategoryModel
 	transactionModel: ITransactionModel
 	summaryModel: ISummaryModel
-}) => {
-	const app = express()
+}
+
+const configureGlobalMiddlewares = (app: Application) => {
+	app.disable('x-powered-by')
 	app.use(
 		cors({
-			origin: 'http://localhost:3000', // Replace with your frontend's origin
-			methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify allowed HTTP methods
-			credentials: true // Allow credentials (cookies, authorization headers, etc.)
+			origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+			methods: ['GET', 'POST', 'PUT', 'DELETE'],
+			credentials: true
 		})
 	)
-	app.disable('x-powered-by')
-
 	app.all('/api/auth/*', toNodeHandler(auth))
 	app.use(json())
-	app.use('/api', createAuthRouter())
-	app.use(authenticatedUser)
-	// Protected routes - apply requireAuth middleware
-	app.use('/accounts', createAccountRouter({ accountModel }))
-	app.use('/categories', createCategoryRouter({ categoryModel }))
-	app.use('/transactions', createTransactionRouter({ transactionModel }))
-	app.use('/summary', createSummaryRouter({ summaryModel }))
+}
 
+const configureRoutes = (app: Application, dependencies: AppDependencies) => {
+	const { accountModel, categoryModel, transactionModel, summaryModel } =
+		dependencies
+	app.use('/api/authentication', createAuthRouter())
+	app.use(authenticatedUser)
+	app.use('/api/accounts', createAccountRouter({ accountModel }))
+	app.use('/api/categories', createCategoryRouter({ categoryModel }))
+	app.use('/api/transactions', createTransactionRouter({ transactionModel }))
+	app.use('/api/summary', createSummaryRouter({ summaryModel }))
+}
+
+const startServer = (app: Application) => {
 	const PORT = process.env.PORT ?? 8080
 	app.listen(PORT, () => {
-		console.log(`server listening on port http://localhost:${PORT}`)
+		console.log(`Server listening on http://localhost:${PORT}`)
 	})
+}
+
+export const createApp = (dependencies: AppDependencies): Application => {
+	const app = express()
+	configureGlobalMiddlewares(app)
+	configureRoutes(app, dependencies)
+	startServer(app)
+
+	return app
 }
