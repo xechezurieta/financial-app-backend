@@ -19,6 +19,7 @@ export class CategoryModel {
 			throw new Error('Failed to retrieve categories')
 		}
 	}
+
 	static async getCategory({
 		categoryId,
 		userId
@@ -45,6 +46,7 @@ export class CategoryModel {
 			throw new Error('Failed to retrieve category')
 		}
 	}
+
 	static async createCategory({
 		userId,
 		name
@@ -68,6 +70,7 @@ export class CategoryModel {
 			throw new Error('Failed to create category')
 		}
 	}
+
 	static async deleteCategories({
 		userId,
 		categoryIds
@@ -92,6 +95,7 @@ export class CategoryModel {
 			throw new Error('Failed to delete categories')
 		}
 	}
+
 	static async editCategoryName({
 		categoryId,
 		userId,
@@ -120,6 +124,7 @@ export class CategoryModel {
 			throw new Error('Failed to edit category name')
 		}
 	}
+
 	static async deleteCategory({
 		userId,
 		categoryId

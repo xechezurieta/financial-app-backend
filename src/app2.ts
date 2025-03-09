@@ -1,30 +1,30 @@
 import express, { Application, json } from 'express'
 import cors from 'cors'
-import { toNodeHandler } from 'better-auth/node'
+import cookieParser from 'cookie-parser'
 import 'dotenv/config'
 
 // Feature routers
-import { createAuthRouter } from '@/features/auth/router'
 import { createAccountRouter } from '@/features/account/router'
 import { createCategoryRouter } from '@/features/category/router'
 import { createTransactionRouter } from '@/features/transaction/router'
 import { createSummaryRouter } from '@/features/summary/router'
+import { createUserRouter } from '@/features/user/router'
 
 // Types
 import { IAccountModel } from '@/features/account/types'
 import { ICategoryModel } from '@/features/category/types'
 import { ITransactionModel } from '@/features/transaction/types'
 import { ISummaryModel } from '@/features/summary/types'
+import { IUserModel } from '@/features/user/types'
 
 // Middleware
-import { authenticatedUser } from './middleware/require-auth'
-import { auth } from '@/lib/auth'
 
 interface AppDependencies {
 	accountModel: IAccountModel
 	categoryModel: ICategoryModel
 	transactionModel: ITransactionModel
 	summaryModel: ISummaryModel
+	userModel: IUserModel
 }
 
 const configureGlobalMiddlewares = (app: Application) => {
@@ -36,16 +36,21 @@ const configureGlobalMiddlewares = (app: Application) => {
 			credentials: true
 		})
 	)
-	app.all('/api/auth/*', toNodeHandler(auth))
+
 	app.use(json())
+	app.use(cookieParser())
 }
 
 const configureRoutes = (app: Application, dependencies: AppDependencies) => {
-	const { accountModel, categoryModel, transactionModel, summaryModel } =
-		dependencies
-	app.use('/api/authentication', createAuthRouter())
-	app.use(authenticatedUser)
-	app.use('/api/accounts', createAccountRouter({ accountModel }))
+	const {
+		accountModel,
+		categoryModel,
+		transactionModel,
+		summaryModel,
+		userModel
+	} = dependencies
+	app.use('/api/users', createUserRouter({ userModel }))
+	app.use('/api/accounts', json(), createAccountRouter({ accountModel }))
 	app.use('/api/categories', createCategoryRouter({ categoryModel }))
 	app.use('/api/transactions', createTransactionRouter({ transactionModel }))
 	app.use('/api/summary', createSummaryRouter({ summaryModel }))
