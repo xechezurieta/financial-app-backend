@@ -36,7 +36,7 @@ export class UserController {
 			const token = jwt.sign(
 				{ id: user.id, email: user.email, role: user.role },
 				process.env.JWT_SECRET,
-				{ expiresIn: '10h' }
+				{ expiresIn: '24h' }
 			)
 			return res.json({ user, token })
 		} catch (error) {
