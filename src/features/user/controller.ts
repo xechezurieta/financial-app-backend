@@ -36,13 +36,8 @@ export class UserController {
 			const token = jwt.sign(
 				{ id: user.id, email: user.email, role: user.role },
 				process.env.JWT_SECRET,
-				{ expiresIn: '1h' }
+				{ expiresIn: '10h' }
 			)
-			res.cookie('x_access_token', token, {
-				httpOnly: true,
-				secure: process.env.NODE_ENV === 'production',
-				sameSite: 'none'
-			})
 			return res.json({ user, token })
 		} catch (error) {
 			console.error('Failed to login user', error)
