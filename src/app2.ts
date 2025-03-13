@@ -1,6 +1,5 @@
 import express, { Application, json } from 'express'
 import cors from 'cors'
-import cookieParser from 'cookie-parser'
 import 'dotenv/config'
 
 // Feature routers
@@ -18,6 +17,7 @@ import { ISummaryModel } from '@/features/summary/types'
 import { IUserModel } from '@/features/user/types'
 
 // Middleware
+import { authMiddleware } from '@/middlewares/auth'
 
 interface AppDependencies {
 	accountModel: IAccountModel
@@ -38,7 +38,6 @@ const configureGlobalMiddlewares = (app: Application) => {
 	)
 
 	app.use(json())
-	app.use(cookieParser())
 }
 
 const configureRoutes = (app: Application, dependencies: AppDependencies) => {
@@ -50,10 +49,24 @@ const configureRoutes = (app: Application, dependencies: AppDependencies) => {
 		userModel
 	} = dependencies
 	app.use('/api/users', createUserRouter({ userModel }))
-	app.use('/api/accounts', json(), createAccountRouter({ accountModel }))
-	app.use('/api/categories', createCategoryRouter({ categoryModel }))
-	app.use('/api/transactions', createTransactionRouter({ transactionModel }))
-	app.use('/api/summary', createSummaryRouter({ summaryModel }))
+
+	// Protected routes with authentication middleware
+	app.use(
+		'/api/accounts',
+		authMiddleware,
+		createAccountRouter({ accountModel })
+	)
+	app.use(
+		'/api/categories',
+		authMiddleware,
+		createCategoryRouter({ categoryModel })
+	)
+	app.use(
+		'/api/transactions',
+		authMiddleware,
+		createTransactionRouter({ transactionModel })
+	)
+	app.use('/api/summary', authMiddleware, createSummaryRouter({ summaryModel }))
 }
 
 const startServer = (app: Application) => {

@@ -12,10 +12,14 @@ export class AccountController {
 	}
 
 	getAccounts = async (req: Request, res: Response) => {
-		console.log('getAccounts', req.user)
+		const userId = req.user?.id.toString()
+		if (!userId) {
+			res.status(401).send('User not found')
+			return
+		}
 		try {
 			const accounts = await this.accountModel.getAccounts({
-				userId: req.user.id
+				userId
 			})
 			console.log('accounts', accounts)
 			res.json({ accounts })
@@ -27,9 +31,14 @@ export class AccountController {
 
 	getAccount = async (req: Request, res: Response) => {
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
 			const account = await this.accountModel.getAccount({
 				accountId: req.params.accountId,
-				userId: req.user.id
+				userId
 			})
 			res.json(account)
 		} catch (error) {
@@ -40,9 +49,13 @@ export class AccountController {
 
 	createAccount = async (req: Request, res: Response) => {
 		try {
-			console.log('createAccount', req.user)
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
 			const account = await this.accountModel.createAccount({
-				userId: req.user.id,
+				userId,
 				name: req.body.name
 			})
 			res.json(account)
@@ -54,11 +67,16 @@ export class AccountController {
 
 	deleteAccounts = async (req: Request, res: Response) => {
 		try {
-			await this.accountModel.deleteAccounts({
-				userId: req.user.id,
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+			const data = await this.accountModel.deleteAccounts({
+				userId,
 				accountIds: req.body.accountIds
 			})
-			res.send('Accounts deleted')
+			res.json({ accounts: data })
 		} catch (error) {
 			console.error('Failed to delete accounts', error)
 			res.status(500).send('Failed to delete accounts')
@@ -67,9 +85,14 @@ export class AccountController {
 
 	deleteAccount = async (req: Request, res: Response) => {
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
 			const deletedAccount = await this.accountModel.deleteAccount({
 				accountId: req.params.accountId,
-				userId: '1'
+				userId
 			})
 			res.json({ deletedAccount })
 		} catch (error) {
@@ -80,12 +103,17 @@ export class AccountController {
 
 	editAccountName = async (req: Request, res: Response) => {
 		try {
-			await this.accountModel.editAccountName({
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+			const account = await this.accountModel.editAccountName({
 				accountId: req.params.accountId,
-				userId: req.user.id,
+				userId,
 				name: req.body.name
 			})
-			res.send('Account name edited')
+			res.json({ account })
 		} catch (error) {
 			console.error('Failed to edit account name', error)
 			res.status(500).send('Failed to edit account name')
