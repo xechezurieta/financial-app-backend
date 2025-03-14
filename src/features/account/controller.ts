@@ -36,9 +36,10 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { accountId } = req.params
 
 			const account = await this.accountModel.getAccount({
-				accountId: req.params.accountId,
+				accountId,
 				userId
 			})
 			res.json({ account })
@@ -55,10 +56,11 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { name } = req.body
 
 			const account = await this.accountModel.createAccount({
 				userId,
-				name: req.body.name
+				name
 			})
 			res.json({ account })
 		} catch (error) {
@@ -74,10 +76,11 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { accountIds } = req.body
 
 			const accounts = await this.accountModel.deleteAccounts({
 				userId,
-				accountIds: req.body.accountIds
+				accountIds
 			})
 			res.json({ accounts })
 		} catch (error) {
@@ -93,9 +96,10 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { accountId } = req.params
 
 			const deletedAccount = await this.accountModel.deleteAccount({
-				accountId: req.params.accountId,
+				accountId,
 				userId
 			})
 			res.json({ deletedAccount })
@@ -112,11 +116,13 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { accountId } = req.params
+			const { name } = req.body
 
 			const account = await this.accountModel.editAccountName({
-				accountId: req.params.accountId,
+				accountId,
 				userId,
-				name: req.body.name
+				name
 			})
 			res.json({ account })
 		} catch (error) {

@@ -10,13 +10,20 @@ export class TransactionController {
 
 	getTransactions = async (req: Request, res: Response) => {
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+			const { from, to, accountId } = req.body
+
 			const transactions = await this.transactionModel.getTransactions({
-				userId: req.user.id,
-				from: undefined,
-				to: undefined,
-				accountId: undefined
+				userId,
+				from,
+				to,
+				accountId
 			})
-			res.json(transactions)
+			res.json({ transactions })
 		} catch (error) {
 			console.error('Failed to get transactions', error)
 			res.status(500).send('Failed to get transactions')
@@ -25,11 +32,18 @@ export class TransactionController {
 
 	getTransaction = async (req: Request, res: Response) => {
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+			const { transactionId } = req.params
+
 			const transaction = await this.transactionModel.getTransaction({
-				transactionId: req.params.transactionId,
-				userId: req.user.id
+				transactionId,
+				userId
 			})
-			res.json(transaction)
+			res.json({ transaction })
 		} catch (error) {
 			console.error('Failed to get transaction', error)
 			res.status(500).send('Failed to get transaction')
@@ -38,16 +52,22 @@ export class TransactionController {
 
 	createTransaction = async (req: Request, res: Response) => {
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+			const { accountId, categoryId, amount, date, payee, notes } = req.body
 			const transaction = await this.transactionModel.createTransaction({
-				userId: req.user.id,
-				accountId: req.body.accountId,
-				categoryId: req.body.categoryId,
-				amount: req.body.amount,
-				date: new Date(req.body.date),
-				payee: req.body.payee,
-				notes: req.body.notes
+				userId,
+				accountId,
+				categoryId,
+				amount,
+				date: new Date(date),
+				payee,
+				notes
 			})
-			res.json(transaction)
+			res.json({ transaction })
 		} catch (error) {
 			console.error('Failed to create transaction', error)
 			res.status(500).send('Failed to create transaction')
@@ -56,11 +76,18 @@ export class TransactionController {
 
 	deleteTransactions = async (req: Request, res: Response) => {
 		try {
-			await this.transactionModel.deleteTransactions({
-				userId: req.user.id,
-				transactionIds: req.body.transactionIds
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+			const { transactionIds } = req.body
+
+			const transactions = await this.transactionModel.deleteTransactions({
+				userId,
+				transactionIds
 			})
-			res.send('Transactions deleted')
+			res.json({ transactions })
 		} catch (error) {
 			console.error('Failed to delete transactions', error)
 			res.status(500).send('Failed to delete transactions')
@@ -69,11 +96,18 @@ export class TransactionController {
 
 	deleteTransaction = async (req: Request, res: Response) => {
 		try {
-			await this.transactionModel.deleteTransaction({
-				transactionId: req.params.transactionId,
-				userId: req.user.id
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+			const { transactionId } = req.params
+
+			const deletedTransaction = await this.transactionModel.deleteTransaction({
+				transactionId,
+				userId
 			})
-			res.send('Transaction deleted')
+			res.json({ deletedTransaction })
 		} catch (error) {
 			console.error('Failed to delete transaction', error)
 			res.status(500).send('Failed to delete transaction')
@@ -82,15 +116,23 @@ export class TransactionController {
 
 	editTransaction = async (req: Request, res: Response) => {
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+			const { transactionId } = req.params
+			const { amount, date, categoryId, payee, notes, accountId } = req.body
+
 			const transaction = await this.transactionModel.editTransaction({
-				transactionId: req.params.transactionId,
-				userId: req.user.id,
-				amount: req.body.amount,
-				date: req.body.date ? new Date(req.body.date) : new Date(),
-				categoryId: req.body.categoryId,
-				payee: req.body.payee,
-				notes: req.body.notes,
-				accountId: req.body.accountId
+				transactionId,
+				userId,
+				amount,
+				date: date ? new Date(date) : new Date(),
+				categoryId,
+				payee,
+				notes,
+				accountId
 			})
 			res.json(transaction)
 		} catch (error) {

@@ -36,9 +36,10 @@ export class CategoryController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { categoryId } = req.params
 
 			const category = await this.categoryModel.getCategory({
-				categoryId: req.params.categoryId,
+				categoryId,
 				userId
 			})
 			res.json({ category })
@@ -55,9 +56,11 @@ export class CategoryController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { name } = req.body
+
 			const category = await this.categoryModel.createCategory({
 				userId,
-				name: req.body.name
+				name
 			})
 			res.json({ category })
 		} catch (error) {
@@ -73,10 +76,11 @@ export class CategoryController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { categoryIds } = req.body
 
 			const categories = await this.categoryModel.deleteCategories({
 				userId,
-				categoryIds: req.body.categoryIds
+				categoryIds
 			})
 			res.json({ categories })
 		} catch (error) {
@@ -92,9 +96,10 @@ export class CategoryController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { categoryId } = req.params
 
 			const deletedCategory = await this.categoryModel.deleteCategory({
-				categoryId: req.params.categoryId,
+				categoryId,
 				userId
 			})
 			res.json({ deletedCategory })
@@ -111,11 +116,13 @@ export class CategoryController {
 				res.status(401).send('User not found')
 				return
 			}
+			const { categoryId } = req.params
+			const { name } = req.body
 
 			const category = await this.categoryModel.editCategoryName({
-				categoryId: req.params.categoryId,
+				categoryId,
 				userId,
-				name: req.body.name
+				name
 			})
 			res.json({ category })
 		} catch (error) {

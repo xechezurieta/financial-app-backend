@@ -121,6 +121,7 @@ export class TransactionModel {
 			throw new Error('Failed to retrieve transaction')
 		}
 	}
+
 	static async createTransaction({
 		userId,
 		date,
@@ -157,6 +158,7 @@ export class TransactionModel {
 			throw new Error('Failed to create transaction')
 		}
 	}
+
 	static async deleteTransactions({
 		userId,
 		transactionIds
@@ -197,6 +199,7 @@ export class TransactionModel {
 			throw new Error('Failed to delete transactions')
 		}
 	}
+
 	static async editTransaction({
 		userId,
 		transactionId,
@@ -257,6 +260,7 @@ export class TransactionModel {
 			throw new Error('Failed to edit transaction')
 		}
 	}
+
 	static async deleteTransaction({
 		userId,
 		transactionId
