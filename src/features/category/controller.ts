@@ -13,10 +13,16 @@ export class CategoryController {
 
 	getCategories = async (req: Request, res: Response) => {
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+
 			const categories = await this.categoryModel.getCategories({
-				userId: '1'
+				userId
 			})
-			res.json(categories)
+			res.json({ categories })
 		} catch (error) {
 			console.error('Failed to get categories', error)
 			res.status(500).send('Failed to get categories')
@@ -25,11 +31,17 @@ export class CategoryController {
 
 	getCategory = async (req: Request, res: Response) => {
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+
 			const category = await this.categoryModel.getCategory({
 				categoryId: req.params.categoryId,
-				userId: req.user.id
+				userId
 			})
-			res.json(category)
+			res.json({ category })
 		} catch (error) {
 			console.error('Failed to get category', error)
 			res.status(500).send('Failed to get category')
@@ -38,11 +50,16 @@ export class CategoryController {
 
 	createCategory = async (req: Request, res: Response) => {
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
 			const category = await this.categoryModel.createCategory({
-				userId: req.user.id,
+				userId,
 				name: req.body.name
 			})
-			res.json(category)
+			res.json({ category })
 		} catch (error) {
 			console.error('Failed to create category', error)
 			res.status(500).send('Failed to create category')
@@ -51,11 +68,17 @@ export class CategoryController {
 
 	deleteCategories = async (req: Request, res: Response) => {
 		try {
-			await this.categoryModel.deleteCategories({
-				userId: req.user.id,
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+
+			const categories = await this.categoryModel.deleteCategories({
+				userId,
 				categoryIds: req.body.categoryIds
 			})
-			res.send('Categories deleted')
+			res.json({ categories })
 		} catch (error) {
 			console.error('Failed to delete categories', error)
 			res.status(500).send('Failed to delete categories')
@@ -64,11 +87,17 @@ export class CategoryController {
 
 	deleteCategory = async (req: Request, res: Response) => {
 		try {
-			await this.categoryModel.deleteCategory({
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+
+			const deletedCategory = await this.categoryModel.deleteCategory({
 				categoryId: req.params.categoryId,
-				userId: req.user.id
+				userId
 			})
-			res.send('Category deleted')
+			res.json({ deletedCategory })
 		} catch (error) {
 			console.error('Failed to delete category', error)
 			res.status(500).send('Failed to delete category')
@@ -77,12 +106,18 @@ export class CategoryController {
 
 	editCategoryName = async (req: Request, res: Response) => {
 		try {
-			await this.categoryModel.editCategoryName({
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+
+			const category = await this.categoryModel.editCategoryName({
 				categoryId: req.params.categoryId,
-				userId: req.user.id,
+				userId,
 				name: req.body.name
 			})
-			res.send('Category name edited')
+			res.json({ category })
 		} catch (error) {
 			console.error('Failed to edit category name', error)
 			res.status(500).send('Failed to edit category name')

@@ -152,4 +152,5 @@ export class CategoryModel {
 	}
 }
 
+// eslint-disable-next-line
 const CategoryModelInstance: ICategoryModel = CategoryModel
