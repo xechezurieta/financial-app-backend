@@ -1,11 +1,7 @@
 import { Router } from 'express'
 import { AccountController } from '@/features/account/controller'
 import { IAccountModel } from '@/features/account/types'
-import { authenticatedUser } from '@/middleware/require-auth'
 
-// TODO: route management
-// TODO: middleware
-// TODO: types
 export const createAccountRouter = ({
 	accountModel
 }: {

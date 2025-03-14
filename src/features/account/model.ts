@@ -1,11 +1,8 @@
 import { and, eq, inArray } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-
 import { IAccountModel } from '@/features/account/types'
 import { Account, accountsTable } from '@/db/schema'
 
-// TODO: error handling
-// TODO: types
 export class AccountModel {
 	static async getAccounts({ userId }: { userId: string }): Promise<Account[]> {
 		try {
@@ -145,5 +142,5 @@ export class AccountModel {
 	}
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line
 const AccountModelInstance: IAccountModel = AccountModel

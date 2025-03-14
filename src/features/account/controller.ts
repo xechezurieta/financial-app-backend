@@ -12,16 +12,16 @@ export class AccountController {
 	}
 
 	getAccounts = async (req: Request, res: Response) => {
-		const userId = req.user?.id.toString()
-		if (!userId) {
-			res.status(401).send('User not found')
-			return
-		}
 		try {
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+
 			const accounts = await this.accountModel.getAccounts({
 				userId
 			})
-			console.log('accounts', accounts)
 			res.json({ accounts })
 		} catch (error) {
 			console.error('Failed to get accounts', error)
@@ -36,11 +36,12 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
+
 			const account = await this.accountModel.getAccount({
 				accountId: req.params.accountId,
 				userId
 			})
-			res.json(account)
+			res.json({ account })
 		} catch (error) {
 			console.error('Failed to get account', error)
 			res.status(500).send('Failed to get account')
@@ -54,11 +55,12 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
+
 			const account = await this.accountModel.createAccount({
 				userId,
 				name: req.body.name
 			})
-			res.json(account)
+			res.json({ account })
 		} catch (error) {
 			console.error('Failed to create account', error)
 			res.status(500).send('Failed to create account')
@@ -72,11 +74,12 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
-			const data = await this.accountModel.deleteAccounts({
+
+			const accounts = await this.accountModel.deleteAccounts({
 				userId,
 				accountIds: req.body.accountIds
 			})
-			res.json({ accounts: data })
+			res.json({ accounts })
 		} catch (error) {
 			console.error('Failed to delete accounts', error)
 			res.status(500).send('Failed to delete accounts')
@@ -90,6 +93,7 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
+
 			const deletedAccount = await this.accountModel.deleteAccount({
 				accountId: req.params.accountId,
 				userId
@@ -108,6 +112,7 @@ export class AccountController {
 				res.status(401).send('User not found')
 				return
 			}
+
 			const account = await this.accountModel.editAccountName({
 				accountId: req.params.accountId,
 				userId,
