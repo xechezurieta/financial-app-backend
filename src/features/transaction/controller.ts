@@ -15,13 +15,13 @@ export class TransactionController {
 				res.status(401).send('User not found')
 				return
 			}
-			const { from, to, accountId } = req.body
+			const { from, to, accountId } = req.query
 
 			const transactions = await this.transactionModel.getTransactions({
 				userId,
-				from,
-				to,
-				accountId
+				from: from?.toString(),
+				to: to?.toString(),
+				accountId: accountId?.toString()
 			})
 			res.json({ transactions })
 		} catch (error) {
