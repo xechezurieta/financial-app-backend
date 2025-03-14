@@ -2,7 +2,7 @@ import { db } from '@/db/drizzle'
 import { PublicUserInfo, usersTable } from '@/db/schema'
 import bcrypt from 'bcrypt'
 import { eq } from 'drizzle-orm'
-import { IUserModel } from '@/features/user/types'
+import { IUserModel } from '@/modules/user/types'
 
 const SALT_ROUNDS = 10
 

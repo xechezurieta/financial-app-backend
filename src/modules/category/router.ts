@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { CategoryController } from '@/features/category/controller'
-import { ICategoryModel } from '@/features/category/types'
+import { CategoryController } from '@/modules/category/controller'
+import { ICategoryModel } from '@/modules/category/types'
 
 export const createCategoryRouter = ({
 	categoryModel

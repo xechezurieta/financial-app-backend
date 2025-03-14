@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { IAccountModel } from '@/features/account/types'
+import { IAccountModel } from '@/modules/account/types'
 
 // TODO: user management
 // TODO: error handling

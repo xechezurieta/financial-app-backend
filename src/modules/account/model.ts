@@ -1,6 +1,6 @@
 import { and, eq, inArray } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { IAccountModel } from '@/features/account/types'
+import { IAccountModel } from '@/modules/account/types'
 import { Account, accountsTable } from '@/db/schema'
 
 export class AccountModel {

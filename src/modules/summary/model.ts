@@ -1,7 +1,7 @@
 import { and, desc, eq, gte, lt, lte, sql, sum } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
 
-import { ISummaryModel } from '@/features/summary/types'
+import { ISummaryModel } from '@/modules/summary/types'
 import { transactionsTable, accountsTable, categoriesTable } from '@/db/schema'
 
 export class SummaryModel {

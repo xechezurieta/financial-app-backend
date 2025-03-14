@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { AccountController } from '@/features/account/controller'
-import { IAccountModel } from '@/features/account/types'
+import { AccountController } from '@/modules/account/controller'
+import { IAccountModel } from '@/modules/account/types'
 
 export const createAccountRouter = ({
 	accountModel

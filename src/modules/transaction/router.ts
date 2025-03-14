@@ -1,6 +1,6 @@
 import { Router } from 'express'
-import { TransactionController } from '@/features/transaction/controller'
-import { ITransactionModel } from '@/features/transaction/types'
+import { TransactionController } from '@/modules/transaction/controller'
+import { ITransactionModel } from '@/modules/transaction/types'
 
 export const createTransactionRouter = ({
 	transactionModel

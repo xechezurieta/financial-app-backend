@@ -2,7 +2,7 @@ import { parse, subDays } from 'date-fns'
 
 import { and, desc, eq, gte, inArray, lte, sql } from 'drizzle-orm'
 import { db } from '@/db/drizzle'
-import { ITransactionModel } from '@/features/transaction/types'
+import { ITransactionModel } from '@/modules/transaction/types'
 import {
 	Transaction,
 	transactionsTable,

@@ -3,18 +3,18 @@ import cors from 'cors'
 import 'dotenv/config'
 
 // Feature routers
-import { createAccountRouter } from '@/features/account/router'
-import { createCategoryRouter } from '@/features/category/router'
-import { createTransactionRouter } from '@/features/transaction/router'
-import { createSummaryRouter } from '@/features/summary/router'
-import { createUserRouter } from '@/features/user/router'
+import { createAccountRouter } from '@/modules/account/router'
+import { createCategoryRouter } from '@/modules/category/router'
+import { createTransactionRouter } from '@/modules/transaction/router'
+import { createSummaryRouter } from '@/modules/summary/router'
+import { createUserRouter } from '@/modules/user/router'
 
 // Types
-import { IAccountModel } from '@/features/account/types'
-import { ICategoryModel } from '@/features/category/types'
-import { ITransactionModel } from '@/features/transaction/types'
-import { ISummaryModel } from '@/features/summary/types'
-import { IUserModel } from '@/features/user/types'
+import { IAccountModel } from '@/modules/account/types'
+import { ICategoryModel } from '@/modules/category/types'
+import { ITransactionModel } from '@/modules/transaction/types'
+import { ISummaryModel } from '@/modules/summary/types'
+import { IUserModel } from '@/modules/user/types'
 
 // Middleware
 import { authMiddleware } from '@/middlewares/auth'

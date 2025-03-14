@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { ICategoryModel } from '@/features/category/types'
+import { ICategoryModel } from '@/modules/category/types'
 
 // TODO: user management
 // TODO: error handling

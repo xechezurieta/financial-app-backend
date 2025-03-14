@@ -1,9 +1,9 @@
-import { AccountModel } from '@/features/account/model'
-import { CategoryModel } from '@/features/category/model'
-import { SummaryModel } from '@/features/summary/model'
-import { TransactionModel } from '@/features/transaction/model'
+import { AccountModel } from '@/modules/account/model'
+import { CategoryModel } from '@/modules/category/model'
+import { SummaryModel } from '@/modules/summary/model'
+import { TransactionModel } from '@/modules/transaction/model'
 import { createApp } from '@/app'
-import { UserModel } from '@/features/user/model'
+import { UserModel } from '@/modules/user/model'
 
 createApp({
 	accountModel: AccountModel,

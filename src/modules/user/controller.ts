@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { IUserModel } from '@/features/user/types'
+import { IUserModel } from '@/modules/user/types'
 import jwt from 'jsonwebtoken'
 
 export class UserController {
