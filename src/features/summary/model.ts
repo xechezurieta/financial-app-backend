@@ -42,6 +42,7 @@ export class SummaryModel {
 				)
 			)
 	}
+
 	static async getCategoriesSummary({
 		userId,
 		accountId,
@@ -85,6 +86,7 @@ export class SummaryModel {
 
 		return { topCategories, otherCategories }
 	}
+
 	static async getSummaryActiveDays({
 		userId,
 		accountId,
@@ -128,4 +130,5 @@ export class SummaryModel {
 	}
 }
 
+// eslint-disable-next-line
 const SummaryModelInstance: ISummaryModel = SummaryModel

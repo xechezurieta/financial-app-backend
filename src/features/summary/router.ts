@@ -11,7 +11,7 @@ export const createSummaryRouter = ({
 
 	const summaryController = new SummaryController({ summaryModel })
 
-	summaryRouter.get('/', summaryController.getSummaryController)
+	summaryRouter.get('/', summaryController.getSummary)
 
 	return summaryRouter
 }

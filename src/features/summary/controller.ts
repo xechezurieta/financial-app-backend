@@ -13,9 +13,14 @@ export class SummaryController {
 		this.summaryModel = summaryModel
 	}
 
-	getSummaryController = async (req: Request, res: Response) => {
+	getSummary = async (req: Request, res: Response) => {
 		try {
-			const { from, to, accountId, userId } = req.query
+			const userId = req.user?.id.toString()
+			if (!userId) {
+				res.status(401).send('User not found')
+				return
+			}
+			const { from, to, accountId } = req.query
 
 			const defaultTo = new Date()
 			const defaultFrom = subDays(defaultTo, 30)
