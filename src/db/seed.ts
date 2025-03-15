@@ -6,7 +6,7 @@ import {
 	transactionsTable
 	/* usersTable */
 } from './schema'
-import { convertAmountToMiliunits } from '../utils'
+import { convertAmountToMiliunits } from '../lib/utils'
 
 const SEED_USER_ID = '1'
 
