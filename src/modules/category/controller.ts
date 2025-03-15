@@ -13,7 +13,7 @@ export class CategoryController {
 
 	getCategories = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -31,7 +31,7 @@ export class CategoryController {
 
 	getCategory = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -51,7 +51,7 @@ export class CategoryController {
 
 	createCategory = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -71,7 +71,7 @@ export class CategoryController {
 
 	deleteCategories = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -91,7 +91,7 @@ export class CategoryController {
 
 	deleteCategory = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -111,7 +111,7 @@ export class CategoryController {
 
 	editCategoryName = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return

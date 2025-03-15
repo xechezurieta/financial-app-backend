@@ -27,3 +27,26 @@ export const mockUpdatedAccount = {
 	id: TEST_ACCOUNT_ID,
 	name: TEST_UPDATED_ACCOUNT_NAME
 }
+
+// Category constants
+export const TEST_CATEGORY_ID = faker.string.uuid()
+export const TEST_NEW_CATEGORY_ID = faker.string.uuid()
+export const TEST_CATEGORY_NAME = faker.commerce.department()
+export const TEST_NEW_CATEGORY_NAME = faker.commerce.department()
+export const TEST_UPDATED_CATEGORY_NAME = faker.commerce.department()
+
+// Mock category data
+export const mockCategory = {
+	id: TEST_CATEGORY_ID,
+	name: TEST_CATEGORY_NAME
+}
+
+export const mockNewCategory = {
+	id: TEST_NEW_CATEGORY_ID,
+	name: TEST_NEW_CATEGORY_NAME
+}
+
+export const mockUpdatedCategory = {
+	id: TEST_CATEGORY_ID,
+	name: TEST_UPDATED_CATEGORY_NAME
+}

@@ -1,26 +1,26 @@
 import { Category } from '@/features/category/schema'
 
 export interface ICategoryModel {
-	getCategories({ userId }: { userId: string }): Promise<Category[]>
+	getCategories({ userId }: { userId: number }): Promise<Category[]>
 	getCategory({
 		categoryId,
 		userId
 	}: {
 		categoryId: string
-		userId: string
+		userId: number
 	}): Promise<Pick<Category, 'id' | 'name'> | undefined>
 	createCategory({
 		userId,
 		name
 	}: {
-		userId: string
+		userId: number
 		name: string
 	}): Promise<Category>
 	deleteCategories({
 		userId,
 		categoryIds
 	}: {
-		userId: string
+		userId: number
 		categoryIds: string[]
 	}): Promise<Pick<Category, 'id'>[]>
 	editCategoryName({
@@ -29,14 +29,14 @@ export interface ICategoryModel {
 		name
 	}: {
 		categoryId: string
-		userId: string
+		userId: number
 		name: string
 	}): Promise<Category>
 	deleteCategory({
 		userId,
 		categoryId
 	}: {
-		userId: string
+		userId: number
 		categoryId: string
 	}): Promise<Pick<Category, 'id'> | undefined>
 }

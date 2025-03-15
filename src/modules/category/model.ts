@@ -7,13 +7,13 @@ export class CategoryModel {
 	static async getCategories({
 		userId
 	}: {
-		userId: string
+		userId: number
 	}): Promise<Category[]> {
 		try {
 			return await db
 				.select()
 				.from(categoriesTable)
-				.where(eq(categoriesTable.userId, userId))
+				.where(eq(categoriesTable.userId, userId.toString()))
 		} catch (error) {
 			console.error('Failed to get categories from database', error)
 			throw new Error('Failed to retrieve categories')
@@ -25,7 +25,7 @@ export class CategoryModel {
 		userId
 	}: {
 		categoryId: string
-		userId: string
+		userId: number
 	}): Promise<Pick<Category, 'id' | 'name'> | undefined> {
 		try {
 			const [data] = await db
@@ -37,7 +37,7 @@ export class CategoryModel {
 				.where(
 					and(
 						eq(categoriesTable.id, categoryId),
-						eq(categoriesTable.userId, userId)
+						eq(categoriesTable.userId, userId.toString())
 					)
 				)
 			return data
@@ -51,7 +51,7 @@ export class CategoryModel {
 		userId,
 		name
 	}: {
-		userId: string
+		userId: number
 		name: string
 	}): Promise<Category> {
 		try {
@@ -59,7 +59,7 @@ export class CategoryModel {
 				.insert(categoriesTable)
 				.values({
 					id: crypto.randomUUID(),
-					userId,
+					userId: userId.toString(),
 					name,
 					plaidId: crypto.randomUUID()
 				})
@@ -75,7 +75,7 @@ export class CategoryModel {
 		userId,
 		categoryIds
 	}: {
-		userId: string
+		userId: number
 		categoryIds: Array<string>
 	}): Promise<Pick<Category, 'id'>[]> {
 		try {
@@ -83,7 +83,7 @@ export class CategoryModel {
 				.delete(categoriesTable)
 				.where(
 					and(
-						eq(categoriesTable.userId, userId),
+						eq(categoriesTable.userId, userId.toString()),
 						inArray(categoriesTable.id, categoryIds)
 					)
 				)
@@ -102,7 +102,7 @@ export class CategoryModel {
 		name
 	}: {
 		categoryId: string
-		userId: string
+		userId: number
 		name: string
 	}): Promise<Category> {
 		try {
@@ -114,7 +114,7 @@ export class CategoryModel {
 				.where(
 					and(
 						eq(categoriesTable.id, categoryId),
-						eq(categoriesTable.userId, userId)
+						eq(categoriesTable.userId, userId.toString())
 					)
 				)
 				.returning()
@@ -129,7 +129,7 @@ export class CategoryModel {
 		userId,
 		categoryId
 	}: {
-		userId: string
+		userId: number
 		categoryId: string
 	}): Promise<Pick<Category, 'id'> | undefined> {
 		try {
@@ -137,7 +137,7 @@ export class CategoryModel {
 				.delete(categoriesTable)
 				.where(
 					and(
-						eq(categoriesTable.userId, userId),
+						eq(categoriesTable.userId, userId.toString()),
 						eq(categoriesTable.id, categoryId)
 					)
 				)
