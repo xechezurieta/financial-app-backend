@@ -4,12 +4,12 @@ import { IAccountModel } from '@/modules/account/types'
 import { Account, accountsTable } from '@/db/schema'
 
 export class AccountModel {
-	static async getAccounts({ userId }: { userId: string }): Promise<Account[]> {
+	static async getAccounts({ userId }: { userId: number }): Promise<Account[]> {
 		try {
 			return await db
 				.select()
 				.from(accountsTable)
-				.where(eq(accountsTable.userId, userId))
+				.where(eq(accountsTable.userId, userId.toString()))
 		} catch (error) {
 			console.error('Failed to get accounts from database', error)
 			throw new Error('Failed to retrieve accounts')
@@ -21,7 +21,7 @@ export class AccountModel {
 		userId
 	}: {
 		accountId: string
-		userId: string
+		userId: number
 	}): Promise<Pick<Account, 'id' | 'name'> | undefined> {
 		try {
 			const [data] = await db
@@ -31,7 +31,10 @@ export class AccountModel {
 				})
 				.from(accountsTable)
 				.where(
-					and(eq(accountsTable.id, accountId), eq(accountsTable.userId, userId))
+					and(
+						eq(accountsTable.id, accountId),
+						eq(accountsTable.userId, userId.toString())
+					)
 				)
 			return data
 		} catch (error) {
@@ -44,16 +47,15 @@ export class AccountModel {
 		userId,
 		name
 	}: {
-		userId: string
+		userId: number
 		name: string
 	}): Promise<Account> {
-		console.log('createAccount', { userId, name })
 		try {
 			const [account] = await db
 				.insert(accountsTable)
 				.values({
 					id: crypto.randomUUID(),
-					userId,
+					userId: userId.toString(),
 					name,
 					plaidId: crypto.randomUUID()
 				})
@@ -69,7 +71,7 @@ export class AccountModel {
 		userId,
 		accountIds
 	}: {
-		userId: string
+		userId: number
 		accountIds: Array<string>
 	}): Promise<Pick<Account, 'id'>[]> {
 		try {
@@ -77,7 +79,7 @@ export class AccountModel {
 				.delete(accountsTable)
 				.where(
 					and(
-						eq(accountsTable.userId, userId),
+						eq(accountsTable.userId, userId.toString()),
 						inArray(accountsTable.id, accountIds)
 					)
 				)
@@ -96,7 +98,7 @@ export class AccountModel {
 		name
 	}: {
 		accountId: string
-		userId: string
+		userId: number
 		name: string
 	}): Promise<Account> {
 		try {
@@ -106,7 +108,10 @@ export class AccountModel {
 					name
 				})
 				.where(
-					and(eq(accountsTable.id, accountId), eq(accountsTable.userId, userId))
+					and(
+						eq(accountsTable.id, accountId),
+						eq(accountsTable.userId, userId.toString())
+					)
 				)
 				.returning()
 			return account
@@ -120,15 +125,17 @@ export class AccountModel {
 		userId,
 		accountId
 	}: {
-		userId: string
+		userId: number
 		accountId: string
 	}): Promise<Pick<Account, 'id'> | undefined> {
-		console.log('deleteAccount1', { userId, accountId })
 		try {
 			const [deletedAccount] = await db
 				.delete(accountsTable)
 				.where(
-					and(eq(accountsTable.userId, userId), eq(accountsTable.id, accountId))
+					and(
+						eq(accountsTable.userId, userId.toString()),
+						eq(accountsTable.id, accountId)
+					)
 				)
 				.returning({
 					id: accountsTable.id

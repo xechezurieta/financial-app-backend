@@ -1,26 +1,26 @@
 import { Account } from '@/features/account/schema'
 
 export interface IAccountModel {
-	getAccounts({ userId }: { userId: string }): Promise<Account[]>
+	getAccounts({ userId }: { userId: number }): Promise<Account[]>
 	getAccount({
 		accountId,
 		userId
 	}: {
 		accountId: string
-		userId: string
+		userId: number
 	}): Promise<Pick<Account, 'id' | 'name'> | undefined>
 	createAccount({
 		userId,
 		name
 	}: {
-		userId: string
+		userId: number
 		name: string
 	}): Promise<Account>
 	deleteAccounts({
 		userId,
 		accountIds
 	}: {
-		userId: string
+		userId: number
 		accountIds: string[]
 	}): Promise<Pick<Account, 'id'>[]>
 	editAccountName({
@@ -29,14 +29,14 @@ export interface IAccountModel {
 		name
 	}: {
 		accountId: string
-		userId: string
+		userId: number
 		name: string
 	}): Promise<Account>
 	deleteAccount({
 		userId,
 		accountId
 	}: {
-		userId: string
+		userId: number
 		accountId: string
 	}): Promise<Pick<Account, 'id'> | undefined>
 }

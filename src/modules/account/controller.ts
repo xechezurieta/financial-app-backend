@@ -13,7 +13,7 @@ export class AccountController {
 
 	getAccounts = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -31,7 +31,7 @@ export class AccountController {
 
 	getAccount = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -51,7 +51,7 @@ export class AccountController {
 
 	createAccount = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -71,7 +71,7 @@ export class AccountController {
 
 	deleteAccounts = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -91,7 +91,7 @@ export class AccountController {
 
 	deleteAccount = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -111,7 +111,7 @@ export class AccountController {
 
 	editAccountName = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
