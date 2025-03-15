@@ -20,7 +20,7 @@ export class TransactionModel {
 		from: string | undefined
 		to: string | undefined
 		accountId: string | undefined
-		userId: string
+		userId: number
 	}): Promise<
 		{
 			id: string
@@ -65,7 +65,7 @@ export class TransactionModel {
 				.where(
 					and(
 						accountId ? eq(transactionsTable.accountId, accountId) : undefined,
-						eq(accountsTable.userId, userId),
+						eq(accountsTable.userId, userId.toString()),
 						gte(transactionsTable.date, startDate),
 						lte(transactionsTable.date, endDate)
 					)
@@ -82,7 +82,7 @@ export class TransactionModel {
 		userId
 	}: {
 		transactionId: string
-		userId: string
+		userId: number
 	}): Promise<{
 		id: string
 		date: Date
@@ -111,7 +111,7 @@ export class TransactionModel {
 				.where(
 					and(
 						eq(transactionsTable.id, transactionId),
-						eq(accountsTable.userId, userId)
+						eq(accountsTable.userId, userId.toString())
 					)
 				)
 
@@ -131,7 +131,7 @@ export class TransactionModel {
 		notes,
 		accountId
 	}: {
-		userId: string
+		userId: number
 		date: Date
 		categoryId: string
 		payee: string
@@ -163,7 +163,7 @@ export class TransactionModel {
 		userId,
 		transactionIds
 	}: {
-		userId: string
+		userId: number
 		transactionIds: Array<string>
 	}): Promise<Pick<Transaction, 'id'>[]> {
 		try {
@@ -178,7 +178,7 @@ export class TransactionModel {
 					.where(
 						and(
 							inArray(transactionsTable.id, transactionIds),
-							eq(accountsTable.userId, userId)
+							eq(accountsTable.userId, userId.toString())
 						)
 					)
 			)
@@ -210,7 +210,7 @@ export class TransactionModel {
 		notes,
 		accountId
 	}: {
-		userId: string
+		userId: number
 		transactionId: string
 		date: Date
 		categoryId: string
@@ -231,7 +231,7 @@ export class TransactionModel {
 					.where(
 						and(
 							eq(transactionsTable.id, transactionId),
-							eq(accountsTable.userId, userId)
+							eq(accountsTable.userId, userId.toString())
 						)
 					)
 			)
@@ -265,7 +265,7 @@ export class TransactionModel {
 		userId,
 		transactionId
 	}: {
-		userId: string
+		userId: number
 		transactionId: string
 	}): Promise<Pick<Transaction, 'id'>> {
 		try {
@@ -280,7 +280,7 @@ export class TransactionModel {
 					.where(
 						and(
 							eq(transactionsTable.id, transactionId),
-							eq(accountsTable.userId, userId)
+							eq(accountsTable.userId, userId.toString())
 						)
 					)
 			)

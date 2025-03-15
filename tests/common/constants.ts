@@ -50,3 +50,46 @@ export const mockUpdatedCategory = {
 	id: TEST_CATEGORY_ID,
 	name: TEST_UPDATED_CATEGORY_NAME
 }
+
+// Transaction constants
+export const TEST_TRANSACTION_ID = faker.string.uuid()
+export const TEST_NEW_TRANSACTION_ID = faker.string.uuid()
+export const TEST_TRANSACTION_AMOUNT = faker.number.float({
+	min: 10,
+	max: 1000,
+	fractionDigits: 2
+})
+export const TEST_TRANSACTION_DATE = faker.date.recent()
+export const TEST_TRANSACTION_PAYEE = faker.company.name()
+export const TEST_TRANSACTION_NOTES = faker.lorem.sentence()
+
+// Mock transaction data
+export const mockTransaction = {
+	id: TEST_TRANSACTION_ID,
+	accountId: TEST_ACCOUNT_ID,
+	categoryId: TEST_CATEGORY_ID,
+	amount: TEST_TRANSACTION_AMOUNT,
+	date: TEST_TRANSACTION_DATE,
+	payee: TEST_TRANSACTION_PAYEE,
+	notes: TEST_TRANSACTION_NOTES
+}
+
+export const mockNewTransaction = {
+	id: TEST_NEW_TRANSACTION_ID,
+	accountId: TEST_ACCOUNT_ID,
+	categoryId: TEST_CATEGORY_ID,
+	amount: TEST_TRANSACTION_AMOUNT,
+	date: TEST_TRANSACTION_DATE,
+	payee: TEST_TRANSACTION_PAYEE,
+	notes: TEST_TRANSACTION_NOTES
+}
+
+export const mockUpdatedTransaction = {
+	id: TEST_TRANSACTION_ID,
+	accountId: TEST_ACCOUNT_ID,
+	categoryId: TEST_CATEGORY_ID,
+	amount: TEST_TRANSACTION_AMOUNT * 1.5,
+	date: TEST_TRANSACTION_DATE,
+	payee: faker.company.name(),
+	notes: faker.lorem.sentence()
+}

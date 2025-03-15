@@ -10,7 +10,7 @@ export interface ITransactionModel {
 		from: string | undefined
 		to: string | undefined
 		accountId: string | undefined
-		userId: string
+		userId: number
 	}): Promise<
 		{
 			id: string
@@ -30,7 +30,7 @@ export interface ITransactionModel {
 		userId
 	}: {
 		transactionId: string
-		userId: string
+		userId: number
 	}): Promise<{
 		id: string
 		date: Date
@@ -50,7 +50,7 @@ export interface ITransactionModel {
 		notes,
 		accountId
 	}: {
-		userId: string
+		userId: number
 		date: Date
 		categoryId: string
 		payee: string
@@ -63,7 +63,7 @@ export interface ITransactionModel {
 		userId,
 		transactionIds
 	}: {
-		userId: string
+		userId: number
 		transactionIds: Array<string>
 	}): Promise<Pick<Transaction, 'id'>[]>
 
@@ -77,7 +77,7 @@ export interface ITransactionModel {
 		notes,
 		accountId
 	}: {
-		userId: string
+		userId: number
 		transactionId: string
 		date: Date
 		categoryId: string
@@ -91,7 +91,7 @@ export interface ITransactionModel {
 		userId,
 		transactionId
 	}: {
-		userId: string
+		userId: number
 		transactionId: string
 	}): Promise<Pick<Transaction, 'id'>>
 }

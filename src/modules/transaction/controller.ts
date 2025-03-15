@@ -10,7 +10,7 @@ export class TransactionController {
 
 	getTransactions = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -32,7 +32,7 @@ export class TransactionController {
 
 	getTransaction = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -52,7 +52,7 @@ export class TransactionController {
 
 	createTransaction = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -76,7 +76,7 @@ export class TransactionController {
 
 	deleteTransactions = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -96,7 +96,7 @@ export class TransactionController {
 
 	deleteTransaction = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -116,7 +116,7 @@ export class TransactionController {
 
 	editTransaction = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
