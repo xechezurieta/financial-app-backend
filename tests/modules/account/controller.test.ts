@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Request, Response } from 'express'
-import { AccountController } from '../../../src/modules/account/controller'
-import { PublicUserInfo } from '../../../src/db/schema'
+import { PublicUserInfo } from '@/db/schema'
 import { faker } from '@faker-js/faker'
+import { AccountController } from '@/modules/account/controller'
 
 // Extend Express Request type to include user information
 declare global {
