@@ -1,8 +1,18 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Request, Response } from 'express'
 import { PublicUserInfo } from '@/db/schema'
-import { faker } from '@faker-js/faker'
 import { AccountController } from '@/modules/account/controller'
+import {
+	TEST_USER_ID,
+	TEST_USER_EMAIL,
+	TEST_USER_ROLE,
+	TEST_ACCOUNT_ID,
+	TEST_NEW_ACCOUNT_NAME,
+	TEST_UPDATED_ACCOUNT_NAME,
+	mockAccount,
+	mockNewAccount,
+	mockUpdatedAccount
+} from '@tests/common/constants'
 
 // Extend Express Request type to include user information
 declare global {
@@ -11,33 +21,6 @@ declare global {
 			user?: PublicUserInfo
 		}
 	}
-}
-
-// Test constants
-const TEST_USER_ID = faker.number.int({ min: 1, max: 1000 })
-const TEST_USER_EMAIL = faker.internet.email()
-const TEST_USER_ROLE = 'standard'
-
-const TEST_ACCOUNT_ID = faker.string.uuid()
-const TEST_NEW_ACCOUNT_ID = faker.string.uuid()
-const TEST_ACCOUNT_NAME = faker.finance.accountName()
-const TEST_NEW_ACCOUNT_NAME = faker.finance.accountName()
-const TEST_UPDATED_ACCOUNT_NAME = faker.finance.accountName()
-
-// Mock data
-const mockAccount = {
-	id: TEST_ACCOUNT_ID,
-	name: TEST_ACCOUNT_NAME
-}
-
-const mockNewAccount = {
-	id: TEST_NEW_ACCOUNT_ID,
-	name: TEST_NEW_ACCOUNT_NAME
-}
-
-const mockUpdatedAccount = {
-	id: TEST_ACCOUNT_ID,
-	name: TEST_UPDATED_ACCOUNT_NAME
 }
 
 // Mock model with typed responses
@@ -117,6 +100,20 @@ describe('AccountController', () => {
 				account: mockAccount
 			})
 		})
+
+		it('should return 401 when user is not found', async () => {
+			// Arrange
+			req.params = { accountId: TEST_ACCOUNT_ID }
+			req.user = undefined
+
+			// Act
+			await controller.getAccount(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(401)
+			expect(res.send).toHaveBeenCalledWith('User not found')
+			expect(fakeAccountModel.getAccount).not.toHaveBeenCalled()
+		})
 	})
 
 	describe('createAccount', () => {
@@ -135,6 +132,20 @@ describe('AccountController', () => {
 			expect(res.json).toHaveBeenCalledWith({
 				account: mockNewAccount
 			})
+		})
+
+		it('should return 401 when user is not found', async () => {
+			// Arrange
+			req.body = { name: TEST_NEW_ACCOUNT_NAME }
+			req.user = undefined
+
+			// Act
+			await controller.createAccount(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(401)
+			expect(res.send).toHaveBeenCalledWith('User not found')
+			expect(fakeAccountModel.createAccount).not.toHaveBeenCalled()
 		})
 	})
 
@@ -156,6 +167,21 @@ describe('AccountController', () => {
 				accounts: [{ id: TEST_ACCOUNT_ID }]
 			})
 		})
+
+		it('should return 401 when user is not found', async () => {
+			// Arrange
+			const accountIds = [TEST_ACCOUNT_ID]
+			req.body = { accountIds }
+			req.user = undefined
+
+			// Act
+			await controller.deleteAccounts(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(401)
+			expect(res.send).toHaveBeenCalledWith('User not found')
+			expect(fakeAccountModel.deleteAccounts).not.toHaveBeenCalled()
+		})
 	})
 
 	describe('deleteAccount', () => {
@@ -174,6 +200,20 @@ describe('AccountController', () => {
 			expect(res.json).toHaveBeenCalledWith({
 				deletedAccount: { id: TEST_ACCOUNT_ID }
 			})
+		})
+
+		it('should return 401 when user is not found', async () => {
+			// Arrange
+			req.params = { accountId: TEST_ACCOUNT_ID }
+			req.user = undefined
+
+			// Act
+			await controller.deleteAccount(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(401)
+			expect(res.send).toHaveBeenCalledWith('User not found')
+			expect(fakeAccountModel.deleteAccount).not.toHaveBeenCalled()
 		})
 	})
 
@@ -196,6 +236,21 @@ describe('AccountController', () => {
 				account: mockUpdatedAccount
 			})
 		})
+
+		it('should return 401 when user is not found', async () => {
+			// Arrange
+			req.params = { accountId: TEST_ACCOUNT_ID }
+			req.body = { name: TEST_UPDATED_ACCOUNT_NAME }
+			req.user = undefined
+
+			// Act
+			await controller.editAccountName(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(401)
+			expect(res.send).toHaveBeenCalledWith('User not found')
+			expect(fakeAccountModel.editAccountName).not.toHaveBeenCalled()
+		})
 	})
 
 	// Test error handling in each method
@@ -215,6 +270,84 @@ describe('AccountController', () => {
 			expect(res.send).toHaveBeenCalledWith('Failed to get accounts')
 		})
 
-		// Similar error tests could be added for other methods
+		it('should handle errors in getAccount', async () => {
+			// Arrange
+			req.params = { accountId: TEST_ACCOUNT_ID }
+			const errorMessage = 'Database error'
+			fakeAccountModel.getAccount.mockRejectedValueOnce(new Error(errorMessage))
+
+			// Act
+			await controller.getAccount(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(500)
+			expect(res.send).toHaveBeenCalledWith('Failed to get account')
+		})
+
+		it('should handle errors in createAccount', async () => {
+			// Arrange
+			req.body = { name: TEST_NEW_ACCOUNT_NAME }
+			const errorMessage = 'Database error'
+			fakeAccountModel.createAccount.mockRejectedValueOnce(
+				new Error(errorMessage)
+			)
+
+			// Act
+			await controller.createAccount(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(500)
+			expect(res.send).toHaveBeenCalledWith('Failed to create account')
+		})
+
+		it('should handle errors in deleteAccounts', async () => {
+			// Arrange
+			const accountIds = [TEST_ACCOUNT_ID]
+			req.body = { accountIds }
+			const errorMessage = 'Database error'
+			fakeAccountModel.deleteAccounts.mockRejectedValueOnce(
+				new Error(errorMessage)
+			)
+
+			// Act
+			await controller.deleteAccounts(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(500)
+			expect(res.send).toHaveBeenCalledWith('Failed to delete accounts')
+		})
+
+		it('should handle errors in deleteAccount', async () => {
+			// Arrange
+			req.params = { accountId: TEST_ACCOUNT_ID }
+			const errorMessage = 'Database error'
+			fakeAccountModel.deleteAccount.mockRejectedValueOnce(
+				new Error(errorMessage)
+			)
+
+			// Act
+			await controller.deleteAccount(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(500)
+			expect(res.send).toHaveBeenCalledWith('Failed to delete account')
+		})
+
+		it('should handle errors in editAccountName', async () => {
+			// Arrange
+			req.params = { accountId: TEST_ACCOUNT_ID }
+			req.body = { name: TEST_UPDATED_ACCOUNT_NAME }
+			const errorMessage = 'Database error'
+			fakeAccountModel.editAccountName.mockRejectedValueOnce(
+				new Error(errorMessage)
+			)
+
+			// Act
+			await controller.editAccountName(req as Request, res as Response)
+
+			// Assert
+			expect(res.status).toHaveBeenCalledWith(500)
+			expect(res.send).toHaveBeenCalledWith('Failed to edit account name')
+		})
 	})
 })
