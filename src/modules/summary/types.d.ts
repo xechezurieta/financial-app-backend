@@ -5,7 +5,7 @@ export interface ISummaryModel {
 		startDate,
 		endDate
 	}: {
-		userId: string
+		userId: number
 		accountId: string
 		startDate: Date
 		endDate: Date
@@ -22,7 +22,7 @@ export interface ISummaryModel {
 		startDate,
 		endDate
 	}: {
-		userId: string
+		userId: number
 		accountId: string
 		startDate: Date
 		endDate: Date
@@ -42,7 +42,7 @@ export interface ISummaryModel {
 		startDate,
 		endDate
 	}: {
-		userId: string
+		userId: number
 		accountId: string
 		startDate: Date
 		endDate: Date

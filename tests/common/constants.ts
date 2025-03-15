@@ -93,3 +93,47 @@ export const mockUpdatedTransaction = {
 	payee: faker.company.name(),
 	notes: faker.lorem.sentence()
 }
+
+// Summary constants
+export const TEST_START_DATE = new Date('2023-01-01')
+export const TEST_END_DATE = new Date('2023-01-31')
+
+// Mock summary data
+export const mockCurrentPeriodSummary = {
+	income: 5000,
+	expenses: 3000,
+	remaining: 2000
+}
+
+export const mockPreviousPeriodSummary = {
+	income: 4500,
+	expenses: 2800,
+	remaining: 1700
+}
+
+export const mockTopCategories = [
+	{ name: 'Food', value: 1200 },
+	{ name: 'Housing', value: 900 },
+	{ name: 'Transportation', value: 500 }
+]
+
+export const mockOtherCategories = [
+	{ name: 'Entertainment', value: 200 },
+	{ name: 'Miscellaneous', value: 200 }
+]
+
+export const mockActiveDays = [
+	{ date: '2023-01-01', income: 500, expenses: 300 },
+	{ date: '2023-01-15', income: 2500, expenses: 1200 },
+	{ date: '2023-01-30', income: 2000, expenses: 1500 }
+]
+
+export const mockSummaryDays = [
+	{ date: '2023-01-01', income: 500, expenses: 300 },
+	{ date: '2023-01-02', income: 0, expenses: 0 },
+	// More days would be here in a real implementation
+	{ date: '2023-01-15', income: 2500, expenses: 1200 },
+	// More days would be here in a real implementation
+	{ date: '2023-01-30', income: 2000, expenses: 1500 },
+	{ date: '2023-01-31', income: 0, expenses: 0 }
+]

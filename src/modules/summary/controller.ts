@@ -15,7 +15,7 @@ export class SummaryController {
 
 	getSummary = async (req: Request, res: Response) => {
 		try {
-			const userId = req.user?.id.toString()
+			const userId = req.user?.id
 			if (!userId) {
 				res.status(401).send('User not found')
 				return
@@ -38,14 +38,14 @@ export class SummaryController {
 			const lastPeriodEndDate = subDays(endDate, periodLength)
 			const [currentPeriod] = await this.summaryModel.fetchFinancialData({
 				accountId: accountId as string,
-				userId: userId as string,
+				userId,
 				startDate,
 				endDate
 			})
 
 			const [lastPeriod] = await this.summaryModel.fetchFinancialData({
 				accountId: accountId as string,
-				userId: userId as string,
+				userId,
 				startDate: lastPeriodStartDate,
 				endDate: lastPeriodEndDate
 			})
@@ -68,7 +68,7 @@ export class SummaryController {
 			const { topCategories, otherCategories } =
 				await this.summaryModel.getCategoriesSummary({
 					accountId: accountId as string,
-					userId: userId as string,
+					userId,
 					startDate,
 					endDate
 				})
@@ -83,7 +83,7 @@ export class SummaryController {
 			}
 			const activeDays = await this.summaryModel.getSummaryActiveDays({
 				accountId: accountId as string,
-				userId: userId as string,
+				userId,
 				startDate,
 				endDate
 			})

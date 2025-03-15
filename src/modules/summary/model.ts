@@ -11,7 +11,7 @@ export class SummaryModel {
 		startDate,
 		endDate
 	}: {
-		userId: string
+		userId: number
 		accountId: string
 		startDate: Date
 		endDate: Date
@@ -36,7 +36,7 @@ export class SummaryModel {
 			.where(
 				and(
 					accountId ? eq(transactionsTable.accountId, accountId) : undefined,
-					eq(accountsTable.userId, userId),
+					eq(accountsTable.userId, userId.toString()),
 					gte(transactionsTable.date, startDate),
 					lte(transactionsTable.date, endDate)
 				)
@@ -49,7 +49,7 @@ export class SummaryModel {
 		startDate,
 		endDate
 	}: {
-		userId: string
+		userId: number
 		accountId: string
 		startDate: Date
 		endDate: Date
@@ -71,7 +71,7 @@ export class SummaryModel {
 			.where(
 				and(
 					accountId ? eq(transactionsTable.accountId, accountId) : undefined,
-					eq(accountsTable.userId, userId),
+					eq(accountsTable.userId, userId.toString()),
 					lt(transactionsTable.amount, 0),
 					gte(transactionsTable.date, startDate),
 					lte(transactionsTable.date, endDate)
@@ -93,7 +93,7 @@ export class SummaryModel {
 		startDate,
 		endDate
 	}: {
-		userId: string
+		userId: number
 		accountId: string
 		startDate: Date
 		endDate: Date
@@ -118,7 +118,7 @@ export class SummaryModel {
 			.where(
 				and(
 					accountId ? eq(transactionsTable.accountId, accountId) : undefined,
-					eq(accountsTable.userId, userId),
+					eq(accountsTable.userId, userId.toString()),
 					gte(transactionsTable.date, startDate),
 					lte(transactionsTable.date, endDate)
 				)
