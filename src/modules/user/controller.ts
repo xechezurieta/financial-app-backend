@@ -38,7 +38,7 @@ export class UserController {
 				process.env.JWT_SECRET,
 				{ expiresIn: '24h' }
 			)
-			return res.json({ user, token })
+			res.json({ user, token })
 		} catch (error) {
 			console.error('Failed to login user', error)
 			res.status(500).send('Failed to login user')
