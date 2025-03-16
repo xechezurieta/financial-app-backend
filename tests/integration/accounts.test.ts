@@ -132,10 +132,10 @@ describe('Account Integration Tests', () => {
 		})
 	})
 
-	describe('PUT /api/accounts/:accountId', () => {
+	describe('PATCH /api/accounts/:accountId', () => {
 		it('should update an account name', async () => {
 			const response = await request(app)
-				.put(`/api/accounts/${TEST_ACCOUNT_ID}`)
+				.patch(`/api/accounts/${TEST_ACCOUNT_ID}`)
 				.send({ name: TEST_UPDATED_ACCOUNT_NAME })
 				.expect('Content-Type', /json/)
 				.expect(200)
@@ -150,7 +150,7 @@ describe('Account Integration Tests', () => {
 
 		it('should return 400 if name is missing', async () => {
 			await request(app)
-				.put(`/api/accounts/${TEST_ACCOUNT_ID}`)
+				.patch(`/api/accounts/${TEST_ACCOUNT_ID}`)
 				.send({})
 				.expect(400)
 
