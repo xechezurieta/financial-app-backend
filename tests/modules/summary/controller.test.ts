@@ -14,12 +14,10 @@ import {
 	mockActiveDays
 } from '@tests/common/constants'
 
-// Use vi.hoisted for variables needed in mocks
 const mockSummaryDays = vi.hoisted(() => ['2023-01-01', '2023-01-02'])
 const TEST_START_DATE = vi.hoisted(() => new Date('2023-01-01'))
 const TEST_END_DATE = vi.hoisted(() => new Date('2023-01-31'))
-// Mocking modules must come before importing the tested module
-// Mock summary utils with proper mocks instead of implementations
+
 vi.mock('@/modules/summary/utils', () => {
 	return {
 		calculatePercentageChange: vi.fn().mockReturnValue(10),
@@ -53,10 +51,8 @@ declare global {
 	}
 }
 
-// Mock the summary model with typed responses
 const fakeSummaryModel = {
 	fetchFinancialData: vi.fn().mockImplementation(({ startDate, endDate }) => {
-		// Return different data based on the date range
 		if (startDate === TEST_START_DATE && endDate === TEST_END_DATE) {
 			return Promise.resolve([mockCurrentPeriodSummary])
 		} else {
@@ -76,7 +72,6 @@ describe('SummaryController', () => {
 	let res: Partial<Response>
 
 	beforeEach(() => {
-		// Reset mocks between tests
 		vi.clearAllMocks()
 
 		controller = new SummaryController({ summaryModel: fakeSummaryModel })
