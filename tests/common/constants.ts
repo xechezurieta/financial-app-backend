@@ -5,6 +5,12 @@ export const TEST_USER_ID = faker.number.int({ min: 1, max: 1000 })
 export const TEST_USER_EMAIL = faker.internet.email()
 export const TEST_USER_ROLE = 'standard'
 
+export const mockUser = {
+	id: TEST_USER_ID,
+	email: TEST_USER_EMAIL,
+	role: TEST_USER_ROLE
+}
+
 // Account constants
 export const TEST_ACCOUNT_ID = faker.string.uuid()
 export const TEST_NEW_ACCOUNT_ID = faker.string.uuid()
