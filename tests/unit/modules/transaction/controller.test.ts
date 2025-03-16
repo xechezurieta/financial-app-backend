@@ -140,7 +140,7 @@ describe('TransactionController', () => {
 				accountId: TEST_ACCOUNT_ID,
 				categoryId: TEST_CATEGORY_ID,
 				amount: TEST_TRANSACTION_AMOUNT,
-				date: TEST_TRANSACTION_DATE.toISOString(),
+				date: TEST_TRANSACTION_DATE,
 				payee: TEST_TRANSACTION_PAYEE,
 				notes: TEST_TRANSACTION_NOTES
 			}
@@ -258,7 +258,7 @@ describe('TransactionController', () => {
 				accountId: TEST_ACCOUNT_ID,
 				categoryId: TEST_CATEGORY_ID,
 				amount: TEST_TRANSACTION_AMOUNT * 1.5,
-				date: TEST_TRANSACTION_DATE.toISOString(),
+				date: TEST_TRANSACTION_DATE,
 				payee: mockUpdatedTransaction.payee,
 				notes: mockUpdatedTransaction.notes
 			}
