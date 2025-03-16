@@ -65,7 +65,7 @@ export const TEST_TRANSACTION_AMOUNT = faker.number.float({
 	max: 1000,
 	fractionDigits: 2
 })
-export const TEST_TRANSACTION_DATE = faker.date.recent()
+export const TEST_TRANSACTION_DATE = faker.date.recent().toString()
 export const TEST_TRANSACTION_PAYEE = faker.company.name()
 export const TEST_TRANSACTION_NOTES = faker.lorem.sentence()
 
