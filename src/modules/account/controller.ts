@@ -1,9 +1,7 @@
 import { Request, Response } from 'express'
 import { IAccountModel } from '@/modules/account/types'
 
-// TODO: user management
-// TODO: error handling
-// TODO: types
+// TODO: improve validation
 export class AccountController {
 	private accountModel: IAccountModel
 
@@ -58,9 +56,19 @@ export class AccountController {
 			}
 			const { name } = req.body
 
+			if (!name || typeof name !== 'string') {
+				res.status(400).send('Name is required and must be a string')
+				return
+			}
+
+			if (name.trim().length < 1 || name.trim().length > 100) {
+				res.status(400).send('Name must be between 1 and 100 characters')
+				return
+			}
+
 			const account = await this.accountModel.createAccount({
 				userId,
-				name
+				name: name.trim()
 			})
 			res.json({ account })
 		} catch (error) {
@@ -77,6 +85,10 @@ export class AccountController {
 				return
 			}
 			const { accountIds } = req.body
+			if (!Array.isArray(accountIds)) {
+				res.status(400).send('Account IDs must be an array')
+				return
+			}
 
 			const accounts = await this.accountModel.deleteAccounts({
 				userId,
@@ -118,6 +130,10 @@ export class AccountController {
 			}
 			const { accountId } = req.params
 			const { name } = req.body
+			if (!name || typeof name !== 'string') {
+				res.status(400).send('Name is required and must be a string')
+				return
+			}
 
 			const account = await this.accountModel.editAccountName({
 				accountId,
