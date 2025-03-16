@@ -13,6 +13,7 @@
 		"db:migrate": "npx tsx src/db/migrate.ts",
 		"db:studio": "drizzle-kit studio",
 		"test": "vitest",
+		"test:int": "vitest tests/integration",
 		"lint": "eslint --fix --ext .ts .",
 		"format": "prettier --write \"src/**/*.{ts,tsx,json,md}\"",
 		"fix": "npm run format && npm run lint-fix"
@@ -41,6 +42,7 @@
 		"@types/jsonwebtoken": "^9.0.9",
 		"@types/node": "^22.10.1",
 		"@types/pg": "^8.11.10",
+		"@types/supertest": "^6.0.2",
 		"@vitest/ui": "^3.0.8",
 		"drizzle-kit": "^0.29.1",
 		"eslint": "^9.21.0",
