@@ -12,6 +12,7 @@ import { ITransactionModel } from '@/modules/transaction/types'
 import { ISummaryModel } from '@/modules/summary/types'
 import { IUserModel } from '@/modules/user/types'
 import { authMiddleware } from '@/middlewares/auth'
+import { createHealthRouter } from '@/modules/health/router'
 
 interface AppDependencies {
 	accountModel: IAccountModel
@@ -42,6 +43,8 @@ const configureRoutes = (app: Application, dependencies: AppDependencies) => {
 		summaryModel,
 		userModel
 	} = dependencies
+
+	app.use('/api/health', createHealthRouter())
 	app.use('/api/users', createUserRouter({ userModel }))
 
 	// Protected routes with authentication middleware
