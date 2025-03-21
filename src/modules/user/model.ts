@@ -1,6 +1,6 @@
 import { db } from '@/db/drizzle'
 import { PublicUserInfo, usersTable } from '@/db/schema'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { eq } from 'drizzle-orm'
 import { IUserModel } from '@/modules/user/types'
 
